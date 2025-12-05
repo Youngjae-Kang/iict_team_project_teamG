@@ -45,10 +45,19 @@ function setup() {
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
 
+  // let divContainer = document.getElementsByClassName('container')
+  // let mainTag = select('#main')
+  let m = select('main')
+  console.log(m)
+
   nameInput = createInput();
-  nameInput.position(width / 2 - 100, height / 2);
+  nameInput.parent('main')
+  nameInput.style('position','relative');
+  // nameInput.position(width / 2 - 100, height / 2);
+  nameInput.position(0,0);
   nameInput.size(200, 30);
   nameInput.hide();
+  console.log(nameInput)
 
   nameBtn = createButton("확인");
   nameBtn.position(width / 2 - 40, height / 2 + 50);
