@@ -1,0 +1,262 @@
+
+function preload() {
+  jsonData = loadJSON("data.json");
+  bgImages["notPrepared"] = loadImage("assets/notPrepared.png")
+  
+  //메인
+  imgMain = loadImage("assets/title_2.png")
+  bgImages["intro_light"] = loadImage("assets/intro_light.png");
+  bgImages["smartphone"] = loadImage("assets/smartphone.png");
+  bgImages["instagram_profile"] = loadImage("assets/instagram_profile.png");
+  imgInstagramBG = loadImage("assets/instagram_profile.png");
+  
+  //episode1
+  bgImages["rainy_day_ep1"] = loadImage("assets/rainy_day_ep1.png")
+  bgImages["crying_child"] = loadImage("assets/crying_child.png")
+  
+  
+  camera_UI = loadImage("assets/camera_ui.png");
+  imgCarRight = loadImage("assets/carR.png");
+  imgCarLeft = loadImage("assets/carL.png");
+  imgChild = loadImage("assets/child.png");
+  imgTarget = loadImage("assets/target_child.png")
+  
+  imgObstacle = loadImage('assets/obstacle.png');
+  imgCprKit = loadImage('assets/cpr_kit.png');
+  imgPill = loadImage('assets/pill.png');
+  imgFirstAid = loadImage('assets/first_aid.png');;
+
+  imgThumb1 = loadImage("assets/insta1.png");
+  imgThumb2 = loadImage("assets/insta2.png");
+  imgThumb3 = loadImage("assets/insta3.png");
+  imgInstaIcon = loadImage("assets/instaicon.png");
+  
+  imgFocusRule = loadImage('assets/rule_focus_ep1.png'); 
+  imgCrossyRule = loadImage('assets/rule_cross_the_street.png');
+  //imgIceRule = loadImage('assets/rule_ice.png');
+  //imgFishingRule = loadImage('assets/rule_fishing.png');
+
+  mainFont = loadFont("font/KimNamyun.ttf");
+  instaFont = loadFont("font/KoPubWorld.ttf");
+}
+
+function setup() {
+  createCanvas(1280, 720);
+  textAlign(CENTER, CENTER);
+  rectMode(CENTER);
+
+  nameInput = createInput();
+  nameInput.position(width / 2 - 100, height / 2);
+  nameInput.size(200, 30);
+  nameInput.hide();
+
+  nameBtn = createButton("확인");
+  nameBtn.position(width / 2 - 40, height / 2 + 50);
+  nameBtn.size(80, 30);
+  nameBtn.mousePressed(submitName);
+  nameBtn.hide();
+
+  if (jsonData) {
+    resetGame();
+  }
+}
+
+function resetGame() {
+  gameState = "MAIN_MENU";
+  currentEpisodeIndex = 0;
+  currentSceneIndex = 0;
+  scoreLikes = 0;
+  scoreHidden = 0;
+  playerName = "";
+  lastInputTime = millis();
+  postedEpisodes = [];
+
+  nameInput.hide();
+  nameBtn.hide();
+}
+
+
+function draw() {
+  background(0);
+  if (gameState === "INSTAGRAM") {
+    textFont(instaFont);
+  } else {
+    textFont(mainFont);
+  }
+
+  // 타임아웃 체크
+  if (
+    gameState !== "MAIN_MENU" &&
+    millis() - lastInputTime > TIMEOUT_DURATION
+  ) {
+    resetGame();
+  }
+
+  // 뷰포트 설정
+  push();
+  translate((width - 960) / 2, 0);
+
+  if (gameState !== "MINIGAME" || minigameType !== "FOCUS") {
+    fill(30);
+    noStroke();
+    rect(480, 360, 960, 720);
+  }
+
+  // 상태별 그리기
+  switch (gameState) {
+    case "MAIN_MENU":
+      drawMainMenu();
+      break;
+    case "NAME_INPUT":
+      drawNameInputScreen();
+      break;
+    case "INTRO":
+      drawScene(jsonData.intro);
+      break;
+    case "SCENE":
+      drawScene(jsonData.episodes[currentEpisodeIndex].scenes);
+      break;
+    case "CHOICE":
+      drawChoice();
+      break;
+    case "RULEBOOK":
+      drawRuleBook();
+      break;
+    case "MINIGAME":
+      runMinigame();
+      break;
+    case "RESULT":
+      drawResult();
+      break;
+    case "INSTAGRAM":
+      drawInstagram();
+      break;
+    case "ENDING":
+      drawEnding();
+      break;
+  }
+
+  pop();
+
+  // 레터박스
+  fill(0);
+  rect((width - 960) / 4, 360, (width - 960) / 2, 720);
+  rect(width - (width - 960) / 4, 360, (width - 960) / 2, 720);
+
+  if (gameState === "MINIGAME" && minigameType === "FOCUS") {
+    if (camera_UI) {
+      imageMode(CENTER);
+      image(camera_UI, 1130, 360, 300, 720);
+    }
+  }
+}
+
+function keyPressed() {
+  lastInputTime = millis();
+
+  if (keyCode === ESCAPE) {
+    let answer = confirm(
+      "정말 돌아가시겠습니까?\n진행 상황은 저장되지 않습니다."
+    );
+    if (answer === true) resetGame();
+    return;
+  }
+
+  if (gameState === "MAIN_MENU") {
+    if (keyCode === ENTER) {
+      gameState = "NAME_INPUT";
+      nameInput.value("");
+      nameInput.show();
+      nameBtn.show();
+    }
+  } else if (gameState === "NAME_INPUT") {
+    if (keyCode === ENTER) submitName();
+  } else if (gameState === "INTRO") {
+    handleSceneInput(jsonData.intro);
+  } else if (gameState === "SCENE") {
+    handleSceneInput(jsonData.episodes[currentEpisodeIndex].scenes);
+  } else if (gameState === "RULEBOOK") {
+    if (keyCode === ENTER || keyCode === 32) initMinigame();
+  } else if (gameState === "RESULT") {
+    if (keyCode === ENTER || keyCode === 32) gameState = "INSTAGRAM";
+  } else if (gameState === "INSTAGRAM") {
+    if (keyCode === ENTER || keyCode === 32) {
+      if (minigameResult !== null) {
+        currentEpisodeIndex++;
+        minigameResult = null;
+        if (currentEpisodeIndex < jsonData.episodes.length) {
+          gameState = "SCENE";
+          currentSceneIndex = 0;
+          prepareDialogue(jsonData.episodes[currentEpisodeIndex].scenes[0]); 
+        } else {
+          gameState = "ENDING";
+        }
+      } else {
+        gameState = "SCENE";
+      }
+    }
+  } else if (gameState === "MINIGAME") {
+    handleMinigameKey();
+  }
+}
+
+function mousePressed() {
+  lastInputTime = millis();
+
+  // 1. SCENE 일 때 인스타 아이콘 클릭 처리
+  if (gameState === "SCENE") {
+    let viewportX = mouseX - (width - 960) / 2;
+    // 아이콘 위치 (900, 60) 주변 클릭 시
+    if (dist(viewportX, mouseY, 900, 60) < 30) {
+      minigameResult = null;
+      gameState = "INSTAGRAM";
+      return; // 인스타로 이동하면 아래 로직 실행 안 함
+    }
+  }
+
+  // 2. SCENE 진행 처리 (아이콘 클릭이 아닐 때)
+  if (gameState === "SCENE") {
+    // 텍스트 박스 근처 클릭이나 화면 클릭 시 다음 대사
+    // 정확한 분리를 위해 명시적으로 episode 데이터를 넘김
+    if (mouseY > 0) { 
+       handleSceneInput(jsonData.episodes[currentEpisodeIndex].scenes);
+    }
+  }
+  // 3. INTRO 진행 처리 (SCENE과 분리!)
+  else if (gameState === "INTRO") {
+    if (mouseY > 0) {
+       handleSceneInput(jsonData.intro);
+    }
+  }
+  // 4. 선택지 처리
+  else if (gameState === "CHOICE") {
+    if (
+      mouseX > width / 2 - 300 &&
+      mouseX < width / 2 + 300 &&
+      mouseY > 400 &&
+      mouseY < 460
+    ) {
+      selectedChoice = "camera_on";
+      startMinigame(
+        jsonData.episodes[currentEpisodeIndex].outcomes.camera_on.minigame
+      );
+    } else if (
+      mouseX > width / 2 - 300 &&
+      mouseX < width / 2 + 300 &&
+      mouseY > 480 &&
+      mouseY < 540
+    ) {
+      selectedChoice = "camera_off";
+      startMinigame(
+        jsonData.episodes[currentEpisodeIndex].outcomes.camera_off.minigame
+      );
+    }
+  }
+  if (gameState === "MINIGAME" && minigameType === "CPR") {
+    handleCprClick(); // minigames.js에 만들 함수
+  }
+  // 5. 낚시 게임
+  else if (gameState === "MINIGAME" && minigameType === "FISHING") {
+    mgFish.barVel = -5;
+  }
+}
