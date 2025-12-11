@@ -15,8 +15,15 @@ function preload() {
   bgImages["crying_child"] = loadImage("assets/crying_child.png")
   bgImages["truck_apporach"] = loadImage("assets/truck.png")
   bgImages["truck_child"] = loadImage("assets/truck_child.png")
+  bgImages["eyes_close up"]= loadImage("assets/eyes_close_up.png")
   
-  
+  //episode2
+  bgImages["bg_school"] = loadImage("assets/school.png")
+  bgImages["bg_school_panic"] = loadImage("assets/fallen_student.png")
+  bgImages["bg_goldentime_news"] = loadImage("assets/golden_time.png")
+  bgImages["student_a"] = loadImage("assets/student_a.png")
+
+  //UI/OBJECT
   camera_UI = loadImage("assets/camera_ui.png");
   imgCarRight = loadImage("assets/carR.png");
   imgCarLeft = loadImage("assets/carL.png");
