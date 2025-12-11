@@ -14,7 +14,7 @@ function initMinigame() {
     mgTimer=500; mgMaxTimer=500; mgCrossy.player=createVector(480,650); mgCrossy.cars=[];
     let lanes=6, split=2;
     for(let i=0; i<lanes; i++) {
-      let dir=(i<=split)?1:-1; let spd=random(4,9)*dir; let cnt=random()>0.5?2:1;
+      let dir=(i<=split)?1:-1; let spd=random(4,7)*dir; let cnt=random()>0.5?2:1;
       for(let j=0; j<cnt; j++){
         let sx=(cnt===1)?random(0,960):random(j*500, j*500+400);
         mgCrossy.cars.push({y:600-i*90, x:sx, w:80, h:40, speed:spd});

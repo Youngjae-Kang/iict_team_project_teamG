@@ -13,6 +13,8 @@ function preload() {
   //episode1
   bgImages["rainy_day_ep1"] = loadImage("assets/rainy_day_ep1.png")
   bgImages["crying_child"] = loadImage("assets/crying_child.png")
+  bgImages["truck_apporach"] = loadImage("assets/truck.png")
+  bgImages["truck_child"] = loadImage("assets/truck_child.png")
   
   
   camera_UI = loadImage("assets/camera_ui.png");
@@ -67,7 +69,8 @@ function resetGame() {
   currentSceneIndex = 0;
   scoreLikes = 0;
   scoreHidden = 0;
-  playerName = "";
+  //디버깅용. 배포 시 playerName = ""로 수정
+  playerName = "테스트유저";
   lastInputTime = millis();
   postedEpisodes = [];
 
@@ -161,7 +164,6 @@ function keyPressed() {
     if (answer === true) resetGame();
     return;
   }
-
   if (gameState === "MAIN_MENU") {
     if (keyCode === ENTER) {
       gameState = "NAME_INPUT";
@@ -198,7 +200,81 @@ function keyPressed() {
   } else if (gameState === "MINIGAME") {
     handleMinigameKey();
   }
+
+// ==============================================
+  // [개발용 디버그 치트키]
+  // 개발 완료 후에는 이 부분을 주석 처리하거나 삭제하세요.
+  // ==============================================
+  
+  // [숫자 1, 2, 3]: 각 에피소드 시작 부분으로 점프
+  if (key === '1') jumpToEpisode(0); // 에피소드 1
+  if (key === '2') jumpToEpisode(1); // 에피소드 2
+  if (key === '3') jumpToEpisode(2); // 에피소드 3
+
+  // [알파벳 키]: 특정 미니게임 바로 시작 (룰북 건너뛰기 테스트)
+  if (key === 'q') jumpToMinigame("FOCUS");
+  if (key === 'w') jumpToMinigame("CROSSY");
+  if (key === 'e') jumpToMinigame("ICE");
+  if (key === 'r') jumpToMinigame("CPR"); // CPR은 ICE 게임 도중 나오지만 강제 진입 가능하게 설정
+  if (key === 't') jumpToMinigame("FISHING");
+
+  // [엔딩 테스트]
+  if (key === '9') { // 배드 엔딩 조건 세팅 후 이동
+    scoreLikes = 20000; scoreHidden = 0;
+    gameState = "ENDING";
+  }
+  if (key === '0') { // 굿 엔딩 조건 세팅 후 이동
+    scoreLikes = 0; scoreHidden = 5;
+    gameState = "ENDING";
+  }
+
+
+
 }
+
+
+
+// [디버그용 헬퍼 함수 1] 에피소드로 점프
+function jumpToMinigame(type) {
+  console.log(`Debug: Starting Minigame ${type}`);
+  minigameType = type;
+  
+  // [핵심 수정] 선택지 화면을 건너뛰었기 때문에, 결과창에서 사용할 변수를 강제로 주입해야 함
+  // 1. 선택지가 비어있다면 강제로 'camera_on'으로 설정 (에러 방지)
+  if (!selectedChoice) {
+    selectedChoice = "camera_on"; 
+  }
+  
+  // 2. 미니게임 종류에 따라 적절한 에피소드 인덱스와 선택지 타입을 맞춰줌 (결과 텍스트 매칭용)
+  if (type === "FOCUS") {
+    // FOCUS는 보통 모든 에피소드에 있지만, 편의상 Ep1로 고정
+    currentEpisodeIndex = 0; 
+    selectedChoice = "camera_on";
+  } 
+  else if (type === "CROSSY") {
+    currentEpisodeIndex = 0; // Ep1
+    selectedChoice = "camera_off"; // 길건너기는 카메라 끄고 구하는 내용
+  }
+  else if (type === "ICE" || type === "CPR") {
+    currentEpisodeIndex = 1; // Ep2
+    selectedChoice = "camera_off"; // 얼음/CPR은 카메라 끄고 구하는 내용
+  }
+  else if (type === "FISHING") {
+    currentEpisodeIndex = 2; // Ep3
+    selectedChoice = "camera_off"; // 낚시(구조)는 카메라 끄고 구하는 내용
+  }
+
+  // 게임 실행 로직
+  if (type === "CPR") {
+    setupCprGame();
+    gameState = "MINIGAME";
+  } else {
+    initMinigame();
+    gameState = "MINIGAME"; 
+  }
+
+}
+
 
 function mousePressed() {
   lastInputTime = millis();
