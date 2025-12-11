@@ -15,7 +15,7 @@ function preload() {
   bgImages["crying_child"] = loadImage("assets/crying_child.png")
   bgImages["truck_apporach"] = loadImage("assets/truck.png")
   bgImages["truck_child"] = loadImage("assets/truck_child.png")
-  bgImages["eyes_close up"]= loadImage("assets/eyes_close_up.png")
+  bgImages["eyes_close_up"]= loadImage("assets/eyes_close_up.png")
   
   //episode2
   bgImages["bg_school"] = loadImage("assets/school.png")
