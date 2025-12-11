@@ -43,8 +43,38 @@ function initMinigame() {
     mgIce.obstacles.push({x: 850, y: 360, r: 40});
   }
   else if (minigameType === "FISHING") {
-    mgTimer=900; mgMaxTimer=900; mgFish.barY=600; mgFish.barVel=0; mgFish.targetY=400; mgFish.targetVel=0; mgFish.progress=20;
-  }
+  mgTimer = 900;       // 제한시간 (약 15초)
+  mgMaxTimer = 900;
+  
+  // 낚시 게임 변수 세팅
+    mgTimer = 900;
+    mgMaxTimer = 900;
+    
+    // 플레이어 바 시작 세팅
+    mgFish.barY = 600;  
+    mgFish.barHeight = 150; 
+    mgFish.barVel = 0;      
+    
+    // -----------------------------------------------------------
+    // [직관적인 수정] 고정 시작점 + 노이즈 변화량 방식
+    // -----------------------------------------------------------
+    
+    // 1. 내가 원하는 시작 위치 (맨 아래쪽)
+    mgFish.startFixedY = 500; 
+    
+    // 2. 시간 초기화
+    mgFish.targetTime = 0;
+    
+    // 3. 게임 시작 순간(0초)의 노이즈 값을 '기준값'으로 저장
+    // 나중에 (현재노이즈 - 이 값)을 하면, 시작할 때 무조건 0이 됩니다.
+    mgFish.startNoiseVal = noise(0); 
+    
+    // -----------------------------------------------------------
+    
+    mgFish.progress = 0; 
+    mgFish.gravity = 0.5;    
+    mgFish.thrust = -0.8;
+}
 }
 
 // 게임 실행 분기
@@ -68,6 +98,7 @@ function handleMinigameKey() {
     mgCrossy.player.x = constrain(mgCrossy.player.x, 15, 945);
     mgCrossy.player.y = constrain(mgCrossy.player.y, 30, 670);
   }
+  
 }
 
 // 게임 종료 처리
@@ -316,7 +347,166 @@ function handleCprClick() {
 
 
 
-function playFishing() { /* 기존 playFishing 코드 복사 */ mgTimer--; if(mgTimer<=0) finishMinigame(false); }
+function playFishing() {
+  // 1. 배경 그리기 (선로 아래 어두운 느낌)
+  fill(10, 10, 30);
+  rect(480, 360, 960, 720);
+  
+  // 게임 영역 (낚시 바 UI)
+  let gameX = 480;
+  let gameY = 360;
+  let gameW = 100;
+  let gameH = 600;
+  let bottomLimit = gameY + gameH/2; // 660
+  let topLimit = gameY - gameH/2;    // 60
+  let padding = 60;
+
+  // 2. 게이지 배경 (틀)
+  fill(50);
+  stroke(200);
+  strokeWeight(4);
+  rect(gameX, gameY, gameW, gameH, 20);
+  noStroke();
+
+  // -------------------------------------------------
+  // [수정] 벽 튕기기 (Reflection) 로직 적용
+  // -------------------------------------------------
+  
+  mgFish.targetTime += 0.008; 
+  
+  let currentNoise = noise(mgFish.targetTime);
+  let diff = currentNoise - mgFish.startNoiseVal;
+  
+  // 1. 일단 가고 싶은 위치를 계산합니다. (화면 밖일 수도 있음)
+  let rawY = mgFish.startFixedY + (diff * 800);
+
+  // 2. 천장(Top) 뚫음 방지 -> 튕겨내기
+  // "뚫고 나간 만큼 안쪽으로 다시 밀어넣습니다."
+  if (rawY < topLimit + padding) {
+    let over = (topLimit + padding) - rawY; // 초과한 거리
+    rawY = (topLimit + padding) + over;     // 반대로 더해줌
+  }
+  
+  // 3. 바닥(Bottom) 뚫음 방지 -> 튕겨내기
+  else if (rawY > bottomLimit - padding) {
+    let over = rawY - (bottomLimit - padding); // 초과한 거리
+    rawY = (bottomLimit - padding) - over;     // 반대로 빼줌
+  }
+
+  // 4. 최종 위치 적용
+  mgFish.targetY = rawY;
+
+  // 혹시라도 튕겼는데도 반대쪽 벽을 뚫을까봐 안전장치 (필수는 아니지만 안전함)
+  mgFish.targetY = constrain(mgFish.targetY, topLimit + padding, bottomLimit - padding);
+
+  // 취객 그리기 (빨간색 원 or 아이콘)
+  fill(255, 50, 50);
+  ellipse(gameX, mgFish.targetY, 60, 60);
+  fill(255);
+  textSize(12);
+  text("취객", gameX, mgFish.targetY);
+
+  // -------------------------------------------------
+  // 4. 플레이어 바 (내 손) 물리엔진
+  // -------------------------------------------------
+  // 스페이스바나 마우스를 누르고 있으면 위로 당김 (힘 작용)
+  if (keyIsDown(32) || mouseIsPressed) {
+    mgFish.barVel += mgFish.thrust;
+  }
+  
+  // 중력 적용
+  mgFish.barVel += mgFish.gravity;
+  // 속도 제한 (너무 빠르지 않게)
+  mgFish.barVel = constrain(mgFish.barVel, -10, 10);
+  
+  // 위치 적용
+  mgFish.barY += mgFish.barVel;
+
+  // 화면 밖으로 나가지 않게 제한 (바닥과 천장 충돌 시 튕김 방지)
+  if (mgFish.barY > bottomLimit - mgFish.barHeight/2) {
+    mgFish.barY = bottomLimit - mgFish.barHeight/2;
+    mgFish.barVel = 0;
+  }
+  if (mgFish.barY < topLimit + mgFish.barHeight/2) {
+    mgFish.barY = topLimit + mgFish.barHeight/2;
+    mgFish.barVel = 0;
+  }
+
+  // -------------------------------------------------
+  // 5. 판정 및 그리기
+  // -------------------------------------------------
+  // 바와 타겟이 겹치는지 확인
+  let isCatching = 
+      (mgFish.targetY > mgFish.barY - mgFish.barHeight/2) && 
+      (mgFish.targetY < mgFish.barY + mgFish.barHeight/2);
+
+  // 바 그리기 (잡고 있으면 초록색, 놓치면 노란색)
+  if (isCatching) {
+    fill(100, 255, 100, 150); // 성공 중 (초록)
+    mgFish.progress += 0.35;   // 게이지 상승 속도
+  } else {
+    fill(255, 200, 0, 100);   // 실패 중 (노랑)
+    mgFish.progress -= 0.2;   // 게이지 하락 속도
+  }
+  
+  // 플레이어 바 렌더링
+  rect(gameX, mgFish.barY, gameW - 10, mgFish.barHeight);
+
+  // -------------------------------------------------
+  // 6. 오른쪽 구조 성공 진행도 (Progress Bar)
+  // -------------------------------------------------
+  mgFish.progress = constrain(mgFish.progress, 0, 100);
+  
+  let progressX = gameX + 100;
+  let progressH = 400;
+  
+  // 진행도 배경
+  fill(30);
+  rect(progressX, 360, 30, progressH);
+  
+  // 현재 진행도 (아래에서 위로 참)
+  let currentH = map(mgFish.progress, 0, 100, 0, progressH);
+  
+  // 게이지 색상 (거의 다 왔으면 파란색, 아니면 붉은색)
+  if (mgFish.progress > 80) fill(0, 255, 255);
+  else fill(255, 50, 50);
+  
+  rectMode(CORNER);
+  rect(progressX - 15, 360 + progressH/2 - currentH, 30, currentH);
+  rectMode(CENTER); // 원래대로 복구
+
+  // 안내 텍스트
+  fill(255);
+  textSize(20);
+  text("SPACE(또는 마우스)키를 꾹 눌러\n취객을 범위 안에 두세요!", 200, 360);
+  text("구조율: " + int(mgFish.progress) + "%", progressX, 120);
+
+  // -------------------------------------------------
+  // 7. 게임 종료 조건
+  // -------------------------------------------------
+  // 1) 구조 성공
+  if (mgFish.progress >= 100) {
+    finishMinigame(true);
+  }
+  
+  // 2) 타임오버 (열차 도착) - 실패 처리
+  // 또는 게이지가 0이 되어도 실패 처리할 수 있음 (선택 사항)
+  mgTimer--;
+  
+  // 상단 타이머 바 (열차 접근 경고)
+  push();
+  rectMode(CORNER);
+  noStroke();
+  fill(255, 0, 0);
+  let w = map(mgTimer, 0, mgMaxTimer, 0, 960);
+  rect(0, 0, w, 20); // 화면 맨 위 줄어드는 바
+  pop();
+
+  if (mgTimer <= 0) {
+    finishMinigame(false);
+  }
+}
+
 
 // 타이머 바 그리기 헬퍼
 function drawTimerBar() {

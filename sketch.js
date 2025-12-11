@@ -331,8 +331,5 @@ function mousePressed() {
   if (gameState === "MINIGAME" && minigameType === "CPR") {
     handleCprClick(); // minigames.js에 만들 함수
   }
-  // 5. 낚시 게임
-  else if (gameState === "MINIGAME" && minigameType === "FISHING") {
-    mgFish.barVel = -5;
-  }
+
 }
