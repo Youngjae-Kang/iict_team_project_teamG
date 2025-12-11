@@ -273,9 +273,9 @@ function jumpToMinigame(type) {
     initMinigame();
     gameState = "MINIGAME"; 
   }
-
-}
 */
+}
+
 
 function mousePressed() {
   lastInputTime = millis();
