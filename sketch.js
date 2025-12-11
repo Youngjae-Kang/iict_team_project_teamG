@@ -207,6 +207,7 @@ function keyPressed() {
   // ==============================================
   
   // [숫자 1, 2, 3]: 각 에피소드 시작 부분으로 점프
+  /*
   if (key === '1') jumpToEpisode(0); // 에피소드 1
   if (key === '2') jumpToEpisode(1); // 에피소드 2
   if (key === '3') jumpToEpisode(2); // 에피소드 3
@@ -274,7 +275,7 @@ function jumpToMinigame(type) {
   }
 
 }
-
+*/
 
 function mousePressed() {
   lastInputTime = millis();
