@@ -13,17 +13,17 @@
     { "speaker": "나레이션", "text": "사람들은 '조회수가 곧 선행'인 세상을 살아갔다.", "bg": "smartphone" },
     { "speaker": "나레이션", "text": "그러나 대다수의 사람들은 이 사실을 알지 못했다.", "bg": "smartphone" },
     { "speaker": "시스템", "text": "당신은 이 세계의 평범한 시민이다.", "bg": "instagram_profile" },
-    { "speaker": "시스템", "text": " 혹은... 조금 덜 평범한.", "bg": "instagram_profile" },
-    { "speaker": "시스템", "text": " 당신은 알고 있다.", "bg": "instagram_profile" },        
-    { "speaker": "시스템", "text": "이 세계에서 '선행 기록'을 모아야만 천국에 갈 수 있다는 사실을", "bg": "instagram_profile" }
+    { "speaker": "시스템", "text": " 혹은... 조금 덜 평범한.", "bg": "instagram_intro" },
+    { "speaker": "시스템", "text": " 당신은 알고 있다.", "bg": "instagram_intro" },        
+    { "speaker": "시스템", "text": "이 세계에서 '선행 기록'을 모아야만 천국에 갈 수 있다는 사실을", "bg": "instagram_intro" }
   ],
   "episodes": [
     {
       "id": 1,
       "title": "EPISODE 1: 횡단보도 위의 울음",
       "scenes": [
-        { "speaker": "나레이션", "text": "(어느 가을 초저녁)\n일기예보와는 달리 갑작스러운 비가 쏟아진다.", "bg": "notPrepared" },
-        { "speaker": "나레이션", "text": "우산이 없는 당신은 급하게 책가방을 머리 위로 올린 채, 서둘러 횡단보도에 선다.", "bg": "notPrepared" },     
+        { "speaker": "나레이션", "text": "(어느 가을 초저녁)\n일기예보와는 달리 갑작스러운 비가 쏟아진다.", "bg": "rainy_bg" },
+        { "speaker": "나레이션", "text": "우산이 없는 당신은 급하게 책가방을 머리 위로 올린 채, 서둘러 횡단보도에 선다.", "bg": "rainy_bg" },     
         { "speaker": "나레이션", "text": "신호등은 아직 빨간불...\n신호가 바뀌려면 아직 한참 멀었다.", "bg": "rainy_day_ep1" }, 
         { "speaker": "나레이션", "text": "모든 사람들이 비를 피해 바쁘게 지나가는 그 틈.", "bg": "rainy_day_ep1" },   
         { "speaker": "나레이션", "text": "당신의 시야에 들어온 건 작은 그림자 하나.", "bg": "crying_child" },

@@ -1,7 +1,23 @@
 html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%; /* 화면 전체 높이 사용 */
+  background-color: #222; /* 배경색 (선택 사항) */
+  
+  /* 중앙 정렬을 위한 Flexbox 설정 */
+  display: flex;
+  justify-content: center; /* 가로 중앙 */
+  align-items: center; /* 세로 중앙 */
 }
+
+#game-container {
+  position: relative; /* 자식 요소(캔버스, 인풋)의 기준점이 됨 */
+  width: 1280px;
+  height: 720px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5); /* 그림자 (선택 사항) */
+}
+
 canvas {
   display: block;
 }

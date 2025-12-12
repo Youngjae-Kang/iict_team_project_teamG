@@ -9,8 +9,9 @@ function preload() {
   bgImages["smartphone"] = loadImage("assets/smartphone.png");
   bgImages["instagram_profile"] = loadImage("assets/instagram_profile.png");
   imgInstagramBG = loadImage("assets/instagram_profile.png");
-  
+  bgImages["instagram_intro"] = loadImage("assets/instagram_profile_2.png")
   //episode1
+  bgImages["rainy_bg"] = loadImage("assets/rainy.png")
   bgImages["rainy_day_ep1"] = loadImage("assets/rainy_day_ep1.png")
   bgImages["crying_child"] = loadImage("assets/crying_child.png")
   bgImages["truck_apporach"] = loadImage("assets/truck.png")
@@ -40,9 +41,10 @@ function preload() {
   imgThumb3 = loadImage("assets/insta3.png");
   imgInstaIcon = loadImage("assets/instaicon.png");
   
-  imgFocusRule = loadImage('assets/rule_focus_ep1.png'); 
+  imgFocusRule_Ep1 = loadImage('assets/rule_focus_ep1.png'); 
+  imgFocusRule_Ep2 = loadImage('assets/rule_focus_ep2.png'); 
   imgCrossyRule = loadImage('assets/rule_cross_the_street.png');
-  //imgIceRule = loadImage('assets/rule_ice.png');
+  imgIceRule = loadImage('assets/AED_rule.png');
   //imgFishingRule = loadImage('assets/rule_fishing.png');
 
   mainFont = loadFont("font/KimNamyun.ttf");
@@ -50,16 +52,27 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1280, 720);
+// 1. 캔버스를 변수에 담고, 아까 만든 HTML div(#game-container)에 종속시킵니다.
+  let cnv = createCanvas(1280, 720);
+  cnv.parent('game-container'); 
+
   textAlign(CENTER, CENTER);
   rectMode(CENTER);
 
+  // 2. 이름 입력창(Input) 설정
   nameInput = createInput();
-  nameInput.position(width / 2 - 100, height / 2);
+  nameInput.parent('game-container'); // ★ 입력창도 game-container 안에 넣습니다.
+  
+  // game-container가 position:relative이므로, 
+  // 여기서 설정하는 position은 컨테이너의 왼쪽 위(0,0)를 기준으로 잡힙니다.
+  // 즉, 캔버스 좌표와 똑같이 생각하고 배치하면 됩니다.
+  nameInput.position(width / 2 - 100, height / 2); 
   nameInput.size(200, 30);
   nameInput.hide();
 
+  // 3. 확인 버튼(Button) 설정
   nameBtn = createButton("확인");
+  nameBtn.parent('game-container'); // ★ 버튼도 game-container 안에 넣습니다.
   nameBtn.position(width / 2 - 40, height / 2 + 50);
   nameBtn.size(80, 30);
   nameBtn.mousePressed(submitName);

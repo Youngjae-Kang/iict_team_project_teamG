@@ -2,7 +2,8 @@
 let bgImages = {};
 let imgTarget, imgChild, camera_UI;
 let imgCarRight, imgCarLeft, imgBarrier;
-let imgFocusRule, imgCrossyRule, imgIceRule, imgFishingRule;
+let imgFocusRule_Ep1, imgFocusRule_Ep2, imgFocusRule_Ep3;
+let imgCrossyRule, imgIceRule, imgFishingRule;
 let imgInstagramBG, imgInstaIcon;
 let imgThumb1, imgThumb2, imgThumb3;
 let mainFont, instaFont;

@@ -35,11 +35,31 @@ function drawMainMenu() {
 function drawRuleBook() {
   background(0); imageMode(CENTER);
   let c = null;
-  if(minigameType==="FOCUS") c=imgFocusRule; else if(minigameType==="CROSSY") c=imgCrossyRule;
+  if (minigameType === "FOCUS") {
+    // FOCUS 게임일 때만 에피소드별로 분기
+    if (currentEpisodeIndex === 0) {
+      c = imgFocusRule_Ep1; 
+    } else if (currentEpisodeIndex === 1) {
+      c = imgFocusRule_Ep2; 
+    } else if (currentEpisodeIndex === 2) {
+      c = imgFocusRule_Ep3; 
+    } else {
+      // 만약 에피소드 인덱스가 범위를 벗어나거나 기타 상황일 때 기본값
+      c = imgFocusRule_Ep1; 
+    }
+  }
+  else if(minigameType==="CROSSY") c=imgCrossyRule;
   else if(minigameType==="ICE") c=imgIceRule; else if(minigameType==="FISHING") c=imgFishingRule;
   
-  if(c) image(c, 480, 360, 960, 720);
-  else { fill(255); textSize(40); text(minigameType + " RULE", 480, 300); }
+  if (c) {
+    image(c, 480, 360, 960, 720);
+  } else { 
+    // 이미지가 없는 경우 (개발 중 혹은 로드 실패 시) 텍스트로 대체
+    fill(255); 
+    textSize(40); 
+    textAlign(CENTER, CENTER);
+    text(minigameType + " RULE\n(Episode " + (currentEpisodeIndex + 1) + ")", 480, 360); 
+  }
   
   if(frameCount%60<30){ fill(0); textSize(30); noStroke(); text("- PRESS SPACE -", 480, 650); }
 }
