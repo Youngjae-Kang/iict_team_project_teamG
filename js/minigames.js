@@ -11,7 +11,7 @@ function initMinigame() {
 
   if (minigameType === "FOCUS") { mgTimer=300; mgMaxTimer=300; mgFocus.shakeX=0; mgFocus.shakeY=0; } 
   else if (minigameType === "CROSSY") {
-    mgTimer=500; mgMaxTimer=500; mgCrossy.player=createVector(480,650); mgCrossy.cars=[];
+    mgTimer=700; mgMaxTimer=700; mgCrossy.player=createVector(480,650); mgCrossy.cars=[];
     let lanes=6, split=2;
     for(let i=0; i<lanes; i++) {
       let dir=(i<=split)?1:-1; let spd=random(4,7)*dir; let cnt=random()>0.5?2:1;
