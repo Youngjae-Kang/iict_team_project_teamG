@@ -14,7 +14,7 @@ function preload() {
   bgImages["rainy_bg"] = loadImage("assets/rainy.png")
   bgImages["rainy_day_ep1"] = loadImage("assets/rainy_day_ep1.png")
   bgImages["crying_child"] = loadImage("assets/crying_child.png")
-  bgImages["truck_apporach"] = loadImage("assets/truck.png")
+  bgImages["truck_approach"] = loadImage("assets/truck.png")
   bgImages["truck_child"] = loadImage("assets/truck_child.png")
   bgImages["eyes_close_up"]= loadImage("assets/eyes_close_up.png")
   
