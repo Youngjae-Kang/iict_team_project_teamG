@@ -61,7 +61,7 @@ function drawRuleBook() {
     text(minigameType + " RULE\n(Episode " + (currentEpisodeIndex + 1) + ")", 480, 360); 
   }
   
-  if(frameCount%60<30){ fill(0); textSize(30); noStroke(); text("- PRESS SPACE -", 480, 650); }
+  if(frameCount%60<30){ fill(0); textSize(30); noStroke(); text("- PRESS SPACE -", 480, 680); }
 }
 
 function drawInstagram() {
