@@ -30,6 +30,7 @@ function preload() {
   imgCarLeft = loadImage("assets/carL.png");
   imgChild = loadImage("assets/child.png");
   imgTarget = loadImage("assets/target_child.png")
+  runningPlayer=loadImage("assets/running.png")
   
   imgObstacle = loadImage('assets/obstacle.png');
   imgCprKit = loadImage('assets/cpr_kit.png');
