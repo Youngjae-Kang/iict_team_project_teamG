@@ -11,7 +11,7 @@ function initMinigame() {
 
   if (minigameType === "FOCUS") { mgTimer=300; mgMaxTimer=300; mgFocus.shakeX=0; mgFocus.shakeY=0; } 
   else if (minigameType === "CROSSY") {
-    mgTimer=500; mgMaxTimer=500; mgCrossy.player=createVector(480,650); mgCrossy.cars=[];
+    mgTimer=700; mgMaxTimer=700; mgCrossy.player=createVector(480,650); mgCrossy.cars=[];
     let lanes=6, split=2;
     for(let i=0; i<lanes; i++) {
       let dir=(i<=split)?1:-1; let spd=random(4,7)*dir; let cnt=random()>0.5?2:1;
@@ -205,19 +205,21 @@ function playCrossy() {
     if(dist(mgCrossy.player.x,mgCrossy.player.y,car.x,car.y)<40) 
     { finishMinigame(false); return; }
   }
-  fill(100,100,255); ellipse(mgCrossy.player.x,mgCrossy.player.y,30,30);
+  //fill(100,100,255); ellipse(mgCrossy.player.x,mgCrossy.player.y,30,30);
+  image(runningPlayer,mgCrossy.player.x,mgCrossy.player.y,30,30);
   if(mgCrossy.player.y<100 && mgCrossy.player.x>400 && mgCrossy.player.x<560) finishMinigame(true);
   mgTimer--; drawTimerBar();
   if(mgTimer<=0) finishMinigame(false);
 }
 
 function playIce() {
-    fill(200, 200, 255);
+  fill(200, 200, 255);
   rect(480, 360, 960, 720);
   fill(0, 255, 0);
   rect(mgIce.goal.x, mgIce.goal.y, 100, 100);
-  text("보건실", mgIce.goal.x, mgIce.goal.y);
+  
   fill(100);
+  text("보건실", mgIce.goal.x, mgIce.goal.y);
   
   imageMode(CENTER);
   for (let obs of mgIce.obstacles){
@@ -244,8 +246,10 @@ function playIce() {
   mgIce.player.add(mgIce.vel);
   if (mgIce.player.x < 20 || mgIce.player.x > 940) mgIce.vel.x *= -1;
   if (mgIce.player.y < 20 || mgIce.player.y > 700) mgIce.vel.y *= -1;
-  fill(255, 0, 0);
-  ellipse(mgIce.player.x, mgIce.player.y, 40, 40);
+  //fill(255, 0, 0);
+  //ellipse(mgIce.player.x, mgIce.player.y, 40, 40);
+  imageMode(CENTER);
+  image(runningPlayer,mgIce.player.x,mgIce.player.y,40,40)
   for (let obs of mgIce.obstacles) {
     if (dist(mgIce.player.x, mgIce.player.y, obs.x, obs.y) < 60)
       mgIce.vel.mult(-1.2);

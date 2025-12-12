@@ -10,6 +10,7 @@ let mainFont, instaFont;
 let imgCprKit, imgPill, imgFirstAid;
 let imgObstacle;
 let imgMain
+let runningPlayer
 
 // === 게임 상태 변수 ===
 let jsonData;
