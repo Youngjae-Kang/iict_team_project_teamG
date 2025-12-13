@@ -32,6 +32,8 @@ function preload() {
   imgTarget = loadImage("assets/target_child.png")
   runningPlayer=loadImage("assets/playericon.png")
   
+  // imgLocker = loadImage("assets/locker.png"); 
+  // imgStudentObs = loadImage("assets/student_obs.png");
   imgObstacle = loadImage('assets/obstacle.png');
   imgCprKit = loadImage('assets/cpr_kit.png');
   imgPill = loadImage('assets/pill.png');
@@ -137,6 +139,9 @@ function draw() {
     case "INTRO":
       drawScene(jsonData.intro);
       break;
+    case "TUTORIAL":  // ★ 새로 추가!
+      drawTutorial(); // 이 함수는 아래에서 새로 만듭니다.
+      break;
     case "SCENE":
       drawScene(jsonData.episodes[currentEpisodeIndex].scenes);
       break;
@@ -196,7 +201,22 @@ function keyPressed() {
     if (keyCode === ENTER) submitName();
   } else if (gameState === "INTRO") {
     handleSceneInput(jsonData.intro);
-  } else if (gameState === "SCENE") {
+  } else if (gameState === "TUTORIAL") { // ★ 새로 추가!
+  // 엔터나 스페이스바를 누르면 다음 튜토리얼 단계로
+  if (keyCode === ENTER || keyCode === 32) {
+    tutorialStep++;
+    // 튜토리얼이 3단계까지 있다고 가정 (0, 1, 2)
+    // 3이 되면 튜토리얼 끝내고 본게임(Episode 1)으로 이동
+    if (tutorialStep > 2) { 
+      gameState = "SCENE";
+      currentEpisodeIndex = 0;
+      currentSceneIndex = 0;
+      prepareDialogue(jsonData.episodes[0].scenes[0]); 
+      }
+    }
+
+  }
+   else if (gameState === "SCENE") {
     handleSceneInput(jsonData.episodes[currentEpisodeIndex].scenes);
   } else if (gameState === "RULEBOOK") {
     if (keyCode === ENTER || keyCode === 32) initMinigame();
@@ -204,6 +224,14 @@ function keyPressed() {
     if (keyCode === ENTER || keyCode === 32) gameState = "INSTAGRAM";
   } else if (gameState === "INSTAGRAM") {
     if (keyCode === ENTER || keyCode === 32) {
+      if (previousGameState === "TUTORIAL") {
+      gameState = "TUTORIAL";
+      tutorialStep = 2; // "잘하셨습니다!" 하면서 다음 단계로 넘겨주면 자연스럽습니다.
+      previousGameState = ""; // 변수 초기화
+      return;
+    }
+    // ★★★ [추가] 인스타 화면을 나갈 때 증가량 표시 초기화
+      recentLikeIncrease = 0;
       if (minigameResult !== null) {
         currentEpisodeIndex++;
         minigameResult = null;
@@ -302,11 +330,12 @@ function mousePressed() {
   lastInputTime = millis();
 
   // 1. SCENE 일 때 인스타 아이콘 클릭 처리
-  if (gameState === "SCENE") {
+  if (gameState === "SCENE" || (gameState === "TUTORIAL" && tutorialStep === 2)) {
     let viewportX = mouseX - (width - 960) / 2;
     // 아이콘 위치 (900, 60) 주변 클릭 시
     if (dist(viewportX, mouseY, 900, 60) < 30) {
       minigameResult = null;
+      previousGameState = gameState;
       gameState = "INSTAGRAM";
       return; // 인스타로 이동하면 아래 로직 실행 안 함
     }

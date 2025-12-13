@@ -32,6 +32,8 @@ function drawMainMenu() {
 
 }
 
+
+
 function drawRuleBook() {
   background(0); imageMode(CENTER);
   let c = null;
@@ -77,6 +79,18 @@ function drawInstagram() {
   text(formatNumber(scoreLikes), 575, 200); 
   text("256", 767, 200); 
 
+  // ★★★ [추가된 부분] 이번에 늘어난 팔로워 수 표시 (빨간색) ★★★
+  // recentLikeIncrease가 0보다 클 때만 표시합니다.
+  if (recentLikeIncrease > 0) {
+    push();
+    fill(255, 50, 50); // 빨간색
+    textSize(18);      // 조금 작게
+    textStyle(BOLD);
+    // 위치는 575(중앙)에서 위쪽(170)으로 조금 올림
+    text("+ " + formatNumber(recentLikeIncrease), 575, 170); 
+    pop();
+  }
+
   let startX=120, startY=440, gap=10, size=235;
   for (let i = 0; i < postedEpisodes.length; i++) {
     let post = postedEpisodes[i];
@@ -87,9 +101,6 @@ function drawInstagram() {
     if (post && post.img) {
       image(post.img, x+size/2, y+size/2, size, size);
       fill(0, 150); noStroke(); rectMode(CORNER);
-      rect(x, y+size-40, size, 40);
-      fill(255); textAlign(LEFT, CENTER); textSize(18);
-      text("▶ " + formatNumber(post.views), x+15, y+size-20);
     }
   }
   if (frameCount % 60 < 30) {
@@ -138,6 +149,55 @@ function drawChoice() {
   if(vx>180 && vx<780 && vy>480 && vy<540) fill(150, 80, 80);
   rect(480, 510, 600, 60, 10);
   fill(255); noStroke(); text(opts[1].label, 480, 510);
+}
+
+function drawTutorial() {
+  background(50); // 약간 어두운 배경
+
+  // 공통 제목
+  fill(255); 
+  textSize(40); 
+  textStyle(BOLD);
+  textAlign(CENTER, CENTER);
+  text("게임 방법 익히기", 480, 100);
+
+  textStyle(NORMAL);
+  textSize(24);
+
+  // 단계별 설명 내용
+  if (tutorialStep === 0) {
+    // [Step 0] 기본 조작 설명
+    text("이 게임은 마우스와 키보드를 사용합니다.", 480, 300);
+    text("대사를 넘기려면 [스페이스바]나 [클릭]을 하세요.", 480, 360);
+    
+    // (시각 자료 예시: 스페이스바 아이콘 같은걸 그려주면 좋음)
+    noFill(); stroke(255); rect(480, 500, 200, 50, 10);
+    fill(255); noStroke(); text("SPACE", 480, 500);
+
+  } else if (tutorialStep === 1) {
+    text("스토리 진행 중 다양한 미니게임이 등장합니다.", 480, 300);
+    text("당신의 선택과 미니게임 결과에 따라 엔딩이 달라집니다.", 480, 360);
+
+
+  } else if (tutorialStep === 2) {
+    text("화면 상단의 인스타그램 아이콘을 눌러보세요.", 480, 250);
+    text("현재까지의 진행 상황과 반응을 확인할 수 있습니다.", 480, 300);
+
+    // 실제 아이콘 위치를 강조하는 화살표나 원 그리기
+    push();
+    imageMode(CENTER);
+    if (imgInstaIcon) image(imgInstaIcon, 900, 60, 50, 50); // 아이콘 보여주기
+    pop();
+    noFill(); stroke(255, 255, 0); strokeWeight(5);
+    ellipse(900, 60, 80, 80); // 노란 동그라미로 강조
+    strokeWeight(1); noStroke();
+    fill(100, 255, 100);
+    text("준비가 되었다면 [ENTER]를 누르세요!", 480, 500);
+  }
+
+  // 하단 안내 문구
+  fill(150); textSize(16);
+  text(`단계 ${tutorialStep + 1} / 3 - [ENTER]를 눌러 계속`, 480, 650);
 }
 
 function formatNumber(num) {

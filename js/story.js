@@ -27,10 +27,8 @@ function nextScene(sceneArray) {
     prepareDialogue(sceneArray[currentSceneIndex]);
   } else {
     if (gameState === "INTRO") {
-      gameState = "SCENE";
-      currentEpisodeIndex = 0;
-      currentSceneIndex = 0;
-      prepareDialogue(jsonData.episodes[0].scenes[0]);
+      gameState = "TUTORIAL"; // 원래는 "SCENE"이었던 곳
+      tutorialStep = 0;       // 튜토리얼 첫 페이지부터 시작
     } else {
       gameState = "CHOICE";
     }

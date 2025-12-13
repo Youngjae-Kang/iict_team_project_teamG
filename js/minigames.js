@@ -11,10 +11,10 @@ function initMinigame() {
 
   if (minigameType === "FOCUS") { mgTimer=300; mgMaxTimer=300; mgFocus.shakeX=0; mgFocus.shakeY=0; } 
   else if (minigameType === "CROSSY") {
-    mgTimer=700; mgMaxTimer=700; mgCrossy.player=createVector(480,650); mgCrossy.cars=[];
+    mgTimer=800; mgMaxTimer=800; mgCrossy.player=createVector(480,650); mgCrossy.cars=[];
     let lanes=6, split=2;
     for(let i=0; i<lanes; i++) {
-      let dir=(i<=split)?1:-1; let spd=random(4,7)*dir; let cnt=random()>0.5?2:1;
+      let dir=(i<=split)?1:-1; let spd=random(4,6)*dir; let cnt=random()>0.5?2:1;
       for(let j=0; j<cnt; j++){
         let sx=(cnt===1)?random(0,960):random(j*500, j*500+400);
         mgCrossy.cars.push({y:600-i*90, x:sx, w:80, h:40, speed:spd});
@@ -22,25 +22,34 @@ function initMinigame() {
     }
   }
   else if (minigameType === "ICE") {
-    mgTimer=600; mgMaxTimer=600; mgIce.player=createVector(100,600); mgIce.vel=createVector(0,0); mgIce.acc=createVector(0,0); mgIce.goal={x:850,y:100}; mgIce.obstacles=[];
-    mgIce.obstacles.push({x: 100, y: 310, r: 40});
-    mgIce.obstacles.push({x: 100, y: 390, r: 40});
-    mgIce.obstacles.push({x: 240, y: 530, r: 40});
-    mgIce.obstacles.push({x: 240, y: 610, r: 40});
-    mgIce.obstacles.push({x: 240, y: 100, r: 40});
-    mgIce.obstacles.push({x: 270, y: 170, r: 40});
-    mgIce.obstacles.push({x: 360, y: 330, r: 40});
-    mgIce.obstacles.push({x: 474, y: 310, r: 40});
-    mgIce.obstacles.push({x: 474, y: 360, r: 40});
-    mgIce.obstacles.push({x: 474, y: 650, r: 40});
-    mgIce.obstacles.push({x: 660, y: 100, r: 40});
-    mgIce.obstacles.push({x: 580, y: 120, r: 40});
-    mgIce.obstacles.push({x: 650, y: 290, r: 40});
-    mgIce.obstacles.push({x: 680, y: 360, r: 40});
-    mgIce.obstacles.push({x: 660, y: 540, r: 40});
-    mgIce.obstacles.push({x: 570, y: 560, r: 40});
-    mgIce.obstacles.push({x: 474, y: 600, r: 40});
-    mgIce.obstacles.push({x: 850, y: 360, r: 40});
+    mgTimer = 800; 
+    mgMaxTimer = 800;
+    
+    // 플레이어 시작 위치 (화면 왼쪽 아래)
+    mgIce.player = createVector(100, 600);
+    mgIce.vel = createVector(0, 0);
+    mgIce.acc = createVector(0, 0);
+    
+    // 골인 지점 (화면 오른쪽 위 '보건실')
+    mgIce.goal = { x: 850, y: 100 }; 
+    
+    // 플레이어 크기 (충돌 계산용)
+    mgIce.pSize = 50; 
+
+    // 장애물 초기화 (이미지 참고하여 배치)
+    mgIce.obstacles = [];
+    
+    // [장애물 1] 중앙 상단 사물함 (길쭉함)
+    mgIce.obstacles.push({ x: 350, y: 150, w: 70, h: 200, type: "LOCKER" });
+    
+    // [장애물 2] 우측 하단 사물함
+    mgIce.obstacles.push({ x: 750, y: 350, w: 70, h: 200, type: "LOCKER" });
+
+    // [장애물 3] 길막고 있는 학생 (왼쪽)
+    mgIce.obstacles.push({ x: 200, y: 150, w: 50, h: 100, type: "STUDENT" });
+
+    // [장애물 4] 길막고 있는 학생 (중앙 하단)
+    mgIce.obstacles.push({ x: 550, y: 550, w: 50, h: 100, type: "STUDENT" });
   }
   else if (minigameType === "FISHING") {
   mgTimer = 900;       // 제한시간 (약 15초)
@@ -74,7 +83,7 @@ function initMinigame() {
     mgFish.progress = 0; 
     mgFish.gravity = 0.5;    
     mgFish.thrust = -0.8;
-}
+  }
 }
 
 // 게임 실행 분기
@@ -112,15 +121,19 @@ function finishMinigame(isSuccess) {
     let thumb = [imgThumb1, imgThumb2, imgThumb3][currentEpisodeIndex];
     if (thumb) postedEpisodes.push({img: thumb, views: views});
   }
+  let earnedLikes = 0; // 이번에 얻을 점수
 
   if (isSuccess) {
     let bonus = int(random(250, 501));
-    scoreLikes += outcome.score_likes + bonus;
+    earnedLikes = outcome.score_likes + bonus; // 성공 시 점수 계산
     scoreHidden += outcome.score_hidden;
   } else {
-    let penalty = int(random(50, 251));
-    scoreLikes += outcome.score_likes * 0.1 + penalty;
+    let penalty = int(random(1,11));
+    earnedLikes = penalty; // 실패 시 점수 계산 (그래도 오르긴 함)
   }
+
+  recentLikeIncrease = earnedLikes; // ★ 증가량 따로 저장!
+  scoreLikes += earnedLikes;        // ★ 전체 점수에 반영
 }
 
 // --- 각 게임별 로직 (간소화) ---
@@ -154,9 +167,9 @@ function playFocus() {
   let d = dist(480+mgFocus.shakeX, 360+mgFocus.shakeY, 480, 360);
   let zoom = map(mgTimer,300,0,1.0,1.3);
   if(d < hitboxRadius * zoom){
-  stroke(0,255,0)
+  stroke('#2cb86b')
   } else{
-    stroke(255,0,0)
+    stroke('#db3535')
   }
   
   strokeWeight(3);
@@ -218,27 +231,47 @@ function playCrossy() {
 }
 
 function playIce() {
-  fill(200, 200, 255);
+  // 배경 그리기
+  fill(220); // 복도 바닥 색 (회색)
   rect(480, 360, 960, 720);
+  
+  // 골인 지점 (보건실)
   fill(0, 255, 0);
   rect(mgIce.goal.x, mgIce.goal.y, 100, 100);
-  
-  fill(100);
+  fill(0); textAlign(CENTER, CENTER); textSize(20);
   text("보건실", mgIce.goal.x, mgIce.goal.y);
-  
-  imageMode(CENTER);
-  for (let obs of mgIce.obstacles){
-    if (imgObstacle) {
-      // 이미지 그리기 (좌표는 obs.x, obs.y)
-      // 크기는 반지름(r) * 2 = 지름
-      image(imgObstacle, obs.x, obs.y, obs.r * 2, obs.r * 2);
-    } else {
-      // 이미지가 없을 때를 대비한 백업 (그냥 원)
-      fill(100); 
-      ellipse(obs.x, obs.y, obs.r * 2);
+
+  // 장애물 그리기
+  for (let obs of mgIce.obstacles) {
+    rectMode(CORNER); // 사각형 그리기 편하게 모드 변경
+    
+    if (obs.type === "LOCKER") {
+      // 사물함 (이미지 있으면 이미지, 없으면 철제 색)
+      if (typeof imgLocker !== 'undefined' && imgLocker) {
+        imageMode(CORNER);
+        image(imgLocker, obs.x, obs.y, obs.w, obs.h);
+      } else {
+        fill(100, 100, 120); stroke(0); strokeWeight(2);
+        rect(obs.x, obs.y, obs.w, obs.h);
+        // 사물함 무늬 디테일 (이미지 없을 때만)
+        line(obs.x+10, obs.y+20, obs.x+obs.w-10, obs.y+20);
+        line(obs.x+10, obs.y+40, obs.x+obs.w-10, obs.y+40);
+      }
+    } else if (obs.type === "STUDENT") {
+      // 학생 (이미지 있으면 이미지, 없으면 사람 색)
+      if (typeof imgStudentObs !== 'undefined' && imgStudentObs) {
+        imageMode(CORNER);
+        image(imgStudentObs, obs.x, obs.y, obs.w, obs.h);
+      } else {
+        fill(50, 50, 150); noStroke();
+        rect(obs.x, obs.y, obs.w, obs.h); // 몸통
+        fill(255, 200, 180);
+        ellipse(obs.x + obs.w/2, obs.y - 10, 30, 30); // 머리 (간단 표현)
+      }
     }
   }
 
+  // 물리 엔진 (가속도 -> 속도 -> 위치)
   mgIce.acc.set(0, 0);
   if (keyIsDown(LEFT_ARROW)) mgIce.acc.x = -0.5;
   if (keyIsDown(RIGHT_ARROW)) mgIce.acc.x = 0.5;
@@ -246,26 +279,80 @@ function playIce() {
   if (keyIsDown(DOWN_ARROW)) mgIce.acc.y = 0.5;
 
   mgIce.vel.add(mgIce.acc);
-  mgIce.vel.mult(0.98);
-  mgIce.vel.limit(20);
+  mgIce.vel.mult(0.98); // 마찰력 (미끄러움 구현)
+  mgIce.vel.limit(10);  // 최대 속도
+
   mgIce.player.add(mgIce.vel);
-  if (mgIce.player.x < 20 || mgIce.player.x > 940) mgIce.vel.x *= -1;
-  if (mgIce.player.y < 20 || mgIce.player.y > 700) mgIce.vel.y *= -1;
-  //fill(255, 0, 0);
-  //ellipse(mgIce.player.x, mgIce.player.y, 40, 40);
-  imageMode(CENTER);
-  image(runningPlayer,mgIce.player.x,mgIce.player.y,40,40)
+
+  // ★ 충돌 체크 (직사각형 + 튕겨내기)
+  // 안전장치: pSize가 없으면 기본값 40 사용
+  let pSize = mgIce.pSize;
+  
   for (let obs of mgIce.obstacles) {
-    if (dist(mgIce.player.x, mgIce.player.y, obs.x, obs.y) < 60)
-      mgIce.vel.mult(-1.2);
+    resolveRectCollision_Bounce(mgIce.player, pSize, obs);
   }
-  if (dist(mgIce.player.x, mgIce.player.y, mgIce.goal.x, mgIce.goal.y) < 60){
+
+  // 화면 밖 이탈 방지 (벽 튕기기)
+  if (mgIce.player.x < pSize/2 || mgIce.player.x > 960 - pSize/2) mgIce.vel.x *= -1.2;
+  if (mgIce.player.y < pSize/2 || mgIce.player.y > 720 - pSize/2) mgIce.vel.y *= -1.2;
+  mgIce.player.x = constrain(mgIce.player.x, pSize/2, 960 - pSize/2);
+  mgIce.player.y = constrain(mgIce.player.y, pSize/2, 720 - pSize/2);
+
+  // 플레이어 그리기
+  imageMode(CENTER);
+  if (typeof runningPlayer !== 'undefined' && runningPlayer) {
+    image(runningPlayer, mgIce.player.x, mgIce.player.y, pSize, pSize);
+  } else {
+    fill(255, 0, 0);
+    rectMode(CENTER);
+    rect(mgIce.player.x, mgIce.player.y, pSize, pSize);
+  }
+
+  // 골인 체크
+  if (dist(mgIce.player.x, mgIce.player.y, mgIce.goal.x, mgIce.goal.y) < 60) {
     setupCprGame();
     return;
   }
-    
-  
-  mgTimer--; drawTimerBar(); if(mgTimer<=0) finishMinigame(false); }
+
+  // 타이머 처리
+  mgTimer--; 
+  drawTimerBar(); 
+  if (mgTimer <= 0) finishMinigame(false);
+}
+
+function resolveRectCollision_Bounce(playerPos, pSize, obs) {
+  let pX = playerPos.x;
+  let pY = playerPos.y;
+  let obsCenterX = obs.x + obs.w / 2;
+  let obsCenterY = obs.y + obs.h / 2;
+
+  let dx = pX - obsCenterX;
+  let dy = pY - obsCenterY;
+
+  let combinedHalfWidths = (pSize / 2) + (obs.w / 2);
+  let combinedHalfHeights = (pSize / 2) + (obs.h / 2);
+
+  // 충돌 검사
+  if (abs(dx) < combinedHalfWidths && abs(dy) < combinedHalfHeights) {
+    let overlapX = combinedHalfWidths - abs(dx);
+    let overlapY = combinedHalfHeights - abs(dy);
+
+    // 겹친 부분이 얇은 쪽(충돌 면)으로 튕겨냄
+    if (overlapX < overlapY) {
+      if (dx > 0) playerPos.x += overlapX; 
+      else playerPos.x -= overlapX;        
+      
+      // X축 속도 반전 및 증폭 (튕겨나감)
+      mgIce.vel.x *= -1.2; 
+    } else {
+      if (dy > 0) playerPos.y += overlapY; 
+      else playerPos.y -= overlapY;        
+      
+      // Y축 속도 반전 및 증폭
+      mgIce.vel.y *= -1.2; 
+    }
+  }
+}
 
 function setupCprGame() {
   minigameType = "CPR"; // 게임 모드 변경
@@ -304,12 +391,19 @@ function playCpr() {
   else if (mgCpr.type === 1) currentImg = imgPill;  // 오답
   else currentImg = imgFirstAid;                    // 오답
 
+  // ★★★ [수정 포인트 1] 크기 변수 설정 ★★★
+  // 이 숫자만 바꾸면 전체 비율이 자동으로 맞춰지게 수정했습니다.
+  let itemSize = 200; // (기존 120에서 200으로 변경)
+
   if (currentImg) {
-    // 그림자 효과 (속도감)
+    // ★★★ [수정 포인트 2] 그림자 위치와 크기 자동 계산 ★★★
     fill(0, 50); noStroke();
-    ellipse(mgCpr.x - 10, mgCpr.y + 60, 100, 20); 
-    // 아이템 본체
-    image(currentImg, mgCpr.x, mgCpr.y, 120, 120);
+    // y 위치: 아이템 크기의 절반만큼 내려가야 바닥에 붙음 (itemSize/2)
+    // 그림자 크기: 아이템보다 살짝 작게 (itemSize * 0.8)
+    ellipse(mgCpr.x - 10, mgCpr.y + (itemSize / 2), itemSize * 0.8, 30); 
+    
+    // ★★★ [수정 포인트 3] 아이템 그리기 ★★★
+    image(currentImg, mgCpr.x, mgCpr.y, itemSize, itemSize);
   }
 
   // 5. 정답(CPR 키트) 위에 마우스 올렸을 때 'Click!' 텍스트
@@ -342,7 +436,7 @@ function handleCprClick() {
   let vy = mouseY;
 
   // 아이템을 클릭했는지 확인 (판정 범위 70px)
-  if (dist(vx, vy, mgCpr.x, mgCpr.y) < 70) {
+  if (dist(vx, vy, mgCpr.x, mgCpr.y) <110) {
     
     if (mgCpr.type === 0) {
       // 정답(CPR 키트) 클릭 -> 최종 성공!
@@ -381,7 +475,7 @@ function playFishing() {
   // [수정] 벽 튕기기 (Reflection) 로직 적용
   // -------------------------------------------------
   
-  mgFish.targetTime += 0.008; 
+  mgFish.targetTime += 0.0073; 
   
   let currentNoise = noise(mgFish.targetTime);
   let diff = currentNoise - mgFish.startNoiseVal;
@@ -452,7 +546,7 @@ function playFishing() {
   // 바 그리기 (잡고 있으면 초록색, 놓치면 노란색)
   if (isCatching) {
     fill(100, 255, 100, 150); // 성공 중 (초록)
-    mgFish.progress += 0.35;   // 게이지 상승 속도
+    mgFish.progress += 0.4;   // 게이지 상승 속도
   } else {
     fill(255, 200, 0, 100);   // 실패 중 (노랑)
     mgFish.progress -= 0.2;   // 게이지 하락 속도

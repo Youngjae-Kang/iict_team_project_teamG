@@ -20,12 +20,15 @@ let currentSceneIndex = 0;
 let currentDialog = {};
 let lastInputTime = 0;
 const TIMEOUT_DURATION = 180000; 
+let tutorialStep = 0;
+let previousGameState = ""; // 인스타 들어가기 전 상태를 저장
 
 // === 플레이어 & 점수 ===
 let playerName = "";
 let scoreLikes = 0;
 let scoreHidden = 0;
 let postedEpisodes = []; // 인스타 피드
+let recentLikeIncrease = 0;
 
 // === UI 요소 ===
 let nameInput, nameBtn;
