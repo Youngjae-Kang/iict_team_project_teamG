@@ -127,7 +127,7 @@ function finishMinigame(isSuccess) {
 function playFocus() {
   let zoomScale = map(mgTimer, 300, 0, 1.0, 1.3);
   let slowFreq = 0.03;
-  let wideRange = 150;
+  let wideRange = 145;
   mgFocus.shakeX = map(
     noise(frameCount * slowFreq),
     0,
@@ -151,13 +151,18 @@ function playFocus() {
   let focusX = 480 + mgFocus.shakeX;
   let focusY = 360 + mgFocus.shakeY;
 
-  noFill();
-  stroke(0);
+  let d = dist(480+mgFocus.shakeX, 360+mgFocus.shakeY, 480, 360);
+  let zoom = map(mgTimer,300,0,1.0,1.3);
+  if(d < hitboxRadius * zoom){
+  stroke(0,255,0)
+  } else{
+    stroke(255,0,0)
+  }
+  
   strokeWeight(3);
   line(focusX - 20, focusY, focusX + 20, focusY);
   line(focusX, focusY - 20, focusX, focusY + 20);
 
-  noFill();
   line(focusX - 60, focusY - 60, focusX - 40, focusY - 60);
   line(focusX - 60, focusY - 60, focusX - 60, focusY - 40);
   line(focusX - 60, focusY + 60, focusX - 40, focusY + 60);
