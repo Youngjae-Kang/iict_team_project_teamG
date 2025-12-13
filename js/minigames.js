@@ -127,13 +127,15 @@ function finishMinigame(isSuccess) {
   }
   let earnedLikes = 0; // 이번에 얻을 점수
 
-  if (isSuccess) {
+  if (isSuccess && minigameType === "FOCUS") {
     let bonus = int(random(250, 501));
     earnedLikes = outcome.score_likes + bonus; // 성공 시 점수 계산
     scoreHidden += outcome.score_hidden;
-  } else {
+  } else if(!isSuccess && minigameType === "Focus"){
     let penalty = int(random(1,11));
     earnedLikes = penalty; // 실패 시 점수 계산 (그래도 오르긴 함)
+  } else{
+    earnedLikes = int(random(1,11));
   }
 
   recentLikeIncrease = earnedLikes; // ★ 증가량 따로 저장!

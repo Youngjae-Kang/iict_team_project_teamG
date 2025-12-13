@@ -129,7 +129,7 @@ function drawEndingCredit() {
   text("플레이해주셔서 감사합니다.", 480, 350);
   
   fill(200, 200, 255);
-  text(`최종 Likes: ${formatNumber(scoreLikes)}`, 480, 450);
+  text(`최종 Followers: ${formatNumber(scoreLikes)}`, 480, 450);
   
   fill(100); textSize(16);
   text("ESC를 눌러 타이틀 화면으로 돌아가기", 480, 600);
@@ -172,7 +172,8 @@ function drawTutorial() {
   if (tutorialStep === 0) {
     // [Step 0] 기본 조작 설명
     text("이 게임은 마우스와 키보드를 사용합니다.", 480, 300);
-    text("대사를 넘기려면 [스페이스바]나 [클릭]을 하세요.", 480, 360);
+    text("대사를 넘기려면 [스페이스바],[엔터키]를 누르거나 [클릭]을 하세요.", 480, 360);
+    text("두 번 누를 시 대사가 빠르게 재생됩니다.", 480, 420)
     
     // (시각 자료 예시: 스페이스바 아이콘 같은걸 그려주면 좋음)
     noFill(); stroke(255); rect(480, 500, 200, 50, 10);
