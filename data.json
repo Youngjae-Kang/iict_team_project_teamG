@@ -168,24 +168,23 @@
       }
     }
   ],
-  "endings": [
-    {
-      "id": "bad",
-      "condition": "camera_on",
-      "text": "심판관은 고개를 젓는다. '너의 기록은 화려하지만, 그건 네가 아니다.'",
-      "subtext": "BAD ENDING: 껍데기뿐인 영웅"
-    },
-    {
-      "id": "good",
-      "condition": "camera_off",
-      "text": "SNS 계정은 초라하지만, 당신 주변의 빛이 폭발적으로 밝아진다. '기록되지 않은 선행이 진짜 너다.'",
-      "subtext": "TRUE ENDING: 무명의 성자"
-    },
-    {
-      "id": "normal",
-      "condition": "mixed",
-      "text": "심판관이 말한다. '빛나는 척도 빛나지만... 진짜 빛은 남기지 않아도 보입니다.'",
-      "subtext": "NORMAL ENDING: 평범한 시민"
-    }
-  ]
+  "endings": {
+    "bad": [
+      { "bg": "bg_school", "speaker": "나레이션", "text": "모든 것이 끝났다." },
+      { "bg": "bg_school", "speaker": "심판관", "text": "너의 기록은 화려하구나. 하지만..." },
+      { "bg": "notPrepared", "speaker": "심판관", "text": "그 기록 속에 진심은 단 하나도 없었어." },
+      { "bg": "notPrepared", "speaker": "시스템", "text": "BAD ENDING: 껍데기뿐인 영웅" }
+    ],
+    "good": [
+      { "bg": "intro_light", "speaker": "나레이션", "text": "긴 하루가 지났다." },
+      { "bg": "intro_light", "speaker": "심판관", "text": "SNS 기록은 거의 없군. 초라해 보일 수도 있겠어." },
+      { "bg": "instagram_profile", "speaker": "심판관", "text": "하지만 네가 구한 사람들이 너를 기억하고 있다." },
+      { "bg": "bg_goldentime_news", "speaker": "시스템", "text": "TRUE ENDING: 무명의 성자" }
+    ],
+    "normal": [
+      { "bg": "bg_subway_danger", "speaker": "나레이션", "text": "그저 그런 평범한 하루였다." },
+      { "bg": "bg_subway_danger", "speaker": "심판관", "text": "나쁘지도, 좋지도 않군. 조금 더 용기를 낼 순 없었나?" },
+      { "bg": "smartphone", "speaker": "시스템", "text": "NORMAL ENDING: 평범한 시민" }
+    ]
+  }
 }

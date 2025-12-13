@@ -117,18 +117,22 @@ function drawResult() {
   fill(150); textSize(20); text("PRESS ENTER",480,600);
 }
 
-function drawEnding() {
-  background(255);
-  let finalEnding;
-  if (scoreLikes > 10000 && scoreHidden < 2) finalEnding = jsonData.endings.find(e => e.id === "bad");
-  else if (scoreHidden >= 2) finalEnding = jsonData.endings.find(e => e.id === "good");
-  else finalEnding = jsonData.endings.find(e => e.id === "normal");
+function drawEndingCredit() {
+  background(0);
+  fill(255);
+  textAlign(CENTER, CENTER);
   
-  fill(0); textSize(40); text("심판의 시간", 480, 150);
-  textSize(28); text(finalEnding.text, 480, 300, 700, 200);
-  textSize(32); fill(0, 0, 150); text(finalEnding.subtext, 480, 500);
-  textSize(16); fill(150); text(`${playerName} 결과 - Likes: ${scoreLikes}`, 480, 650);
-  text("ESC를 눌러 처음으로", 480, 680);
+  textSize(50); textStyle(BOLD);
+  text("THE END", 480, 250);
+  
+  textSize(24); textStyle(NORMAL);
+  text("플레이해주셔서 감사합니다.", 480, 350);
+  
+  fill(200, 200, 255);
+  text(`최종 Likes: ${formatNumber(scoreLikes)}`, 480, 450);
+  
+  fill(100); textSize(16);
+  text("ESC를 눌러 타이틀 화면으로 돌아가기", 480, 600);
 }
 
 function drawChoice() {

@@ -161,8 +161,11 @@ function draw() {
     case "INSTAGRAM":
       drawInstagram();
       break;
-    case "ENDING":
-      drawEnding();
+    case "ENDING_SEQUENCE": // 엔딩 스토리 진행 중 (대화창 나옴)
+      drawScene(currentEndingScenes);
+      break;
+    case "ENDING_CREDIT":   // 엔딩 끝나고 최종 화면 (THE END)
+      drawEndingCredit();   // ui.js에 만들 예정
       break;
   }
 
@@ -241,13 +244,22 @@ function keyPressed() {
           currentSceneIndex = 0;
           prepareDialogue(jsonData.episodes[currentEpisodeIndex].scenes[0]); 
         } else {
-          gameState = "ENDING";
+          startEndingSequence();
         }
       } else {
         gameState = "SCENE";
       }
     }
-  } else if (gameState === "MINIGAME") {
+
+  } else if (gameState === "ENDING_SEQUENCE") {
+    // 엔딩 시나리오 배열(currentEndingScenes)을 넘기는 함수 호출
+    handleSceneInput(currentEndingScenes);
+
+  } else if (gameState === "ENDING_CREDIT") {
+    if (keyCode === ESCAPE) resetGame();
+  }
+
+   else if (gameState === "MINIGAME") {
     handleMinigameKey();
   }
 
@@ -380,8 +392,14 @@ function mousePressed() {
       );
     }
   }
+  else if (gameState === "ENDING_SEQUENCE") {
+    if (mouseY > 0) {
+       handleSceneInput(currentEndingScenes);
+    }
+  }
   if (gameState === "MINIGAME" && minigameType === "CPR") {
     handleCprClick(); // minigames.js에 만들 함수
   }
 
 }
+

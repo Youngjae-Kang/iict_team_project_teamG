@@ -25,6 +25,7 @@ let lastInputTime = 0;
 const TIMEOUT_DURATION = 180000; 
 let tutorialStep = 0;
 let previousGameState = ""; // 인스타 들어가기 전 상태를 저장
+let currentEndingScenes = [];
 
 // === 플레이어 & 점수 ===
 let playerName = "";

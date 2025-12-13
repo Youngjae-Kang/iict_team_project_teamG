@@ -29,6 +29,9 @@ function nextScene(sceneArray) {
     if (gameState === "INTRO") {
       gameState = "TUTORIAL"; // 원래는 "SCENE"이었던 곳
       tutorialStep = 0;       // 튜토리얼 첫 페이지부터 시작
+    }  else if (gameState === "ENDING_SEQUENCE") {
+      // ★ 추가된 부분: 엔딩 스토리가 끝나면 최종 크레딧 화면으로
+      gameState = "ENDING_CREDIT"; 
     } else {
       gameState = "CHOICE";
     }
@@ -71,4 +74,24 @@ function drawScene(sceneArray) {
      image(imgInstaIcon, 900, 60, 50, 50); 
    }
    
+}
+function startEndingSequence() {
+  gameState = "ENDING_SEQUENCE";
+  currentSceneIndex = 0;
+
+  // 1. 점수에 따라 엔딩 타입 결정
+  let endingType = "normal";
+  if (scoreLikes > 10000 && scoreHidden < 2) endingType = "bad";
+  else if (scoreHidden >= 2) endingType = "good";
+  
+  // 2. json에서 해당 엔딩 시나리오 가져오기
+  // (만약 json 로딩 실패시를 대비해 빈 배열 처리)
+  if (jsonData && jsonData.endings && jsonData.endings[endingType]) {
+    currentEndingScenes = jsonData.endings[endingType];
+  } else {
+    currentEndingScenes = [{ text: "엔딩 데이터 오류", speaker: "System", bg: "notPrepared" }];
+  }
+
+  // 3. 첫 대사 시작
+  prepareDialogue(currentEndingScenes[0]);
 }
