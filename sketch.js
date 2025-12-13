@@ -32,8 +32,9 @@ function preload() {
   imgTarget = loadImage("assets/target_child.png")
   runningPlayer=loadImage("assets/playericon.png")
   
-  // imgLocker = loadImage("assets/locker.png"); 
-  // imgStudentObs = loadImage("assets/student_obs.png");
+  imgStBoy = loadImage("assets/standing_boy.png"); 
+  imgStGirl = loadImage("assets/standing_girl.png");
+  imgExtinguisher=loadImage("assets/fire_extinguisher.png")
   imgObstacle = loadImage('assets/obstacle.png');
   imgCprKit = loadImage('assets/cpr_kit.png');
   imgPill = loadImage('assets/pill.png');

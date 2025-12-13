@@ -40,16 +40,20 @@ function initMinigame() {
     mgIce.obstacles = [];
     
     // [장애물 1] 중앙 상단 사물함 (길쭉함)
-    mgIce.obstacles.push({ x: 350, y: 150, w: 70, h: 200, type: "LOCKER" });
+    mgIce.obstacles.push({ x: 350, y: 200, w: 80, h: 200, type: "StBoy" });
     
     // [장애물 2] 우측 하단 사물함
-    mgIce.obstacles.push({ x: 750, y: 350, w: 70, h: 200, type: "LOCKER" });
+    mgIce.obstacles.push({ x: 750, y: 350, w: 80, h: 200, type: "StBoy" });
 
     // [장애물 3] 길막고 있는 학생 (왼쪽)
-    mgIce.obstacles.push({ x: 200, y: 150, w: 50, h: 100, type: "STUDENT" });
+    mgIce.obstacles.push({ x: 150, y: 150, w: 70, h: 190, type: "StGirl" });
 
     // [장애물 4] 길막고 있는 학생 (중앙 하단)
-    mgIce.obstacles.push({ x: 550, y: 550, w: 50, h: 100, type: "STUDENT" });
+    mgIce.obstacles.push({ x: 550, y: 500, w: 70, h: 190, type: "StGirl" });
+    // 소화기
+    mgIce.obstacles.push({ x: 270, y: 610, w: 40, h: 80, type: "Extinguisher" });
+    mgIce.obstacles.push({ x: 500, y: 50, w: 40, h: 80, type: "Extinguisher" });
+    mgIce.obstacles.push({ x: 600, y: 240, w: 40, h: 80, type: "Extinguisher" });
   }
   else if (minigameType === "FISHING") {
   mgTimer = 900;       // 제한시간 (약 15초)
@@ -245,11 +249,11 @@ function playIce() {
   for (let obs of mgIce.obstacles) {
     rectMode(CORNER); // 사각형 그리기 편하게 모드 변경
     
-    if (obs.type === "LOCKER") {
+    if (obs.type === "StBoy") {
       // 사물함 (이미지 있으면 이미지, 없으면 철제 색)
-      if (typeof imgLocker !== 'undefined' && imgLocker) {
+      if (typeof imgStBoy !== 'undefined' && imgStBoy) {
         imageMode(CORNER);
-        image(imgLocker, obs.x, obs.y, obs.w, obs.h);
+        image(imgStBoy, obs.x, obs.y, obs.w, obs.h);
       } else {
         fill(100, 100, 120); stroke(0); strokeWeight(2);
         rect(obs.x, obs.y, obs.w, obs.h);
@@ -257,16 +261,21 @@ function playIce() {
         line(obs.x+10, obs.y+20, obs.x+obs.w-10, obs.y+20);
         line(obs.x+10, obs.y+40, obs.x+obs.w-10, obs.y+40);
       }
-    } else if (obs.type === "STUDENT") {
+    } else if (obs.type === "StGirl") {
       // 학생 (이미지 있으면 이미지, 없으면 사람 색)
-      if (typeof imgStudentObs !== 'undefined' && imgStudentObs) {
+      if (typeof imgStGirl !== 'undefined' && imgStGirl) {
         imageMode(CORNER);
-        image(imgStudentObs, obs.x, obs.y, obs.w, obs.h);
+        image(imgStGirl, obs.x, obs.y, obs.w, obs.h);
       } else {
         fill(50, 50, 150); noStroke();
         rect(obs.x, obs.y, obs.w, obs.h); // 몸통
         fill(255, 200, 180);
         ellipse(obs.x + obs.w/2, obs.y - 10, 30, 30); // 머리 (간단 표현)
+      }
+    } else if (obs.type === "Extinguisher") {
+      if (typeof imgExtinguisher !== 'undefined' && imgExtinguisher){
+      imageMode(CORNER);
+      image(imgExtinguisher,obs.x,obs.y,obs.w,obs.h);
       }
     }
   }

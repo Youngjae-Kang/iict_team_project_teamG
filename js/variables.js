@@ -11,6 +11,9 @@ let imgCprKit, imgPill, imgFirstAid;
 let imgObstacle;
 let imgMain
 let runningPlayer
+let imgStBoy
+let imgStGirl
+let imgExtinguisher
 
 // === 게임 상태 변수 ===
 let jsonData;
