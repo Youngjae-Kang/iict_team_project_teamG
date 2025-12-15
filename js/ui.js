@@ -192,12 +192,13 @@ function drawTutorial() {
 
   } else if (tutorialStep === 1) {
     text("스토리 진행 중 다양한 미니게임이 등장합니다.", 480, 300);
-    text("당신의 선택과 미니게임 결과에 따라 엔딩이 달라집니다.", 480, 360);
+    text("게임 시작 전 제공되는 룰북을 잘 읽고 게임에 도전해보세요.",480,360)
+    text("당신의 선택과 미니게임 결과에 따라 엔딩이 달라집니다.", 480, 420);
 
 
   } else if (tutorialStep === 2) {
     text("화면 상단의 인스타그램 아이콘을 눌러보세요.", 480, 250);
-    text("현재까지의 진행 상황과 반응을 확인할 수 있습니다.", 480, 300);
+    text("현재까지의 진행 상황과 '팔로워 수 등'을 확인할 수 있습니다.", 480, 300);
 
     // 실제 아이콘 위치를 강조하는 화살표나 원 그리기
     push();
@@ -208,12 +209,12 @@ function drawTutorial() {
     ellipse(900, 60, 80, 80); // 노란 동그라미로 강조
     strokeWeight(1); noStroke();
     fill(100, 255, 100);
-    text("준비가 되었다면 [ENTER]를 누르세요!", 480, 500);
+    text("준비가 되었다면 [SPACE] / [ENTER]를 누르세요!", 480, 500);
   }
 
   // 하단 안내 문구
   fill(150); textSize(16);
-  text(`단계 ${tutorialStep + 1} / 3 - [ENTER]를 눌러 계속`, 480, 650);
+  text(`단계 ${tutorialStep + 1} / 3 - [SPACE] / [ENTER]를 눌러 계속`, 480, 650);
 }
 
 function formatNumber(num) {

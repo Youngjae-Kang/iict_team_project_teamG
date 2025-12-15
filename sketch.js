@@ -220,7 +220,7 @@ function keyPressed() {
   } else if (gameState === "NAME_INPUT") {
     if (keyCode === ENTER) submitName();
   } else if (gameState === "INTRO") {
-    handleSceneInput(jsonData.intro);
+    if (keyCode === ENTER || keyCode === 32)  handleSceneInput(jsonData.intro);
   } else if (gameState === "TUTORIAL") { // ★ 새로 추가!
   // 엔터나 스페이스바를 누르면 다음 튜토리얼 단계로
   if (keyCode === ENTER || keyCode === 32) {
@@ -237,7 +237,7 @@ function keyPressed() {
 
   }
    else if (gameState === "SCENE") {
-    handleSceneInput(jsonData.episodes[currentEpisodeIndex].scenes);
+    if (keyCode === ENTER || keyCode === 32)  handleSceneInput(jsonData.episodes[currentEpisodeIndex].scenes);
   } else if (gameState === "RULEBOOK") {
     if (keyCode === ENTER || keyCode === 32) initMinigame();
   } else if (gameState === "RESULT") {
@@ -268,9 +268,10 @@ function keyPressed() {
     }
 
   } else if (gameState === "ENDING_SEQUENCE") {
+    if (keyCode === ENTER || keyCode === 32){
     // 엔딩 시나리오 배열(currentEndingScenes)을 넘기는 함수 호출
     handleSceneInput(currentEndingScenes);
-
+    }
   } else if (gameState === "ENDING_CREDIT") {
     if (keyCode === ESCAPE) resetGame();
   }
