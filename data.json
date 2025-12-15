@@ -12,7 +12,7 @@
     { "speaker": "나레이션", "text": "선행 기록으로 얻은 팔로워는 인간의 도덕성을 수치화했고,", "bg": "smartphone" },
     { "speaker": "나레이션", "text": "사람들은 자신도 모르게 '선행 기록으로 얻은 팔로워 수'로 평가받는 시대를 살았다.", "bg": "smartphone"},
     { "speaker": "나레이션", "text": "'쓰러진 친구를 대신 일으켜 세우는 영상으로 얻은 12K의 팔로워...'\n'비 오는 날 우산 씌워주기'는 평균 3.2K의 팔로워' 등등 ", "bg": "smartphone" },
-    { "speaker": "나레이션", "text": "사람들은 '팔로워 수가 곧 선행'인 세상 속에 살고있지만 대다수의 사람들은 이 사실을 알지 못했다.", "bg": "smartphone" },
+    { "speaker": "나레이션", "text": "사람들은 '팔로워 수가 곧 선행'인 세상 속에 살고있지만\n대다수의 사람들은 이 사실을 알지 못했다.", "bg": "smartphone" },
     { "speaker": "시스템", "text": "당신은 이 세계의 평범한 시민이다.", "bg": "instagram_intro" },
     { "speaker": "시스템", "text": " 혹은... 조금 덜 평범한.", "bg": "instagram_intro" },
     { "speaker": "시스템", "text": " 당신은 알고 있다.", "bg": "instagram_intro" },        
@@ -89,7 +89,7 @@
         { "speaker": "나레이션", "text": "'응급상황을 빠르게 대처하는 학생 영웅'", "bg": "eyes_close_up" },
         { "speaker": "나레이션", "text": "그 말만으로도 좋아요 수는 폭발적일 것이고,\n팔로워는 하루만에 수천 단위로 늘어날 것이다.", "bg": "eyes_close_up" },
         { "speaker": "주인공", "text": "뛰어가는 모습, 걱정하는 표정, 상황의 긴박함...", "bg": "eyes_close_up" },
-        { "speaker": "주인공", "text": "각도만 잘 맞으면...이건 분명히 뜬다.", "bg": "eyes_close_up" },
+        { "speaker": "주인공", "text": "각도만 잘 맞으면... 이건 분명히 뜬다.", "bg": "eyes_close_up" },
         { "speaker": "나레이션", "text": "그러나 동시에 떠오른다.", "bg": "bg_goldentime_news" },
         { "speaker": "나레이션", "text": "카메라를 켜는 몇 초, 구도를 잡는 몇 초.\n찍히는 자신의 모습을 의식하며 달려가는 그 몇 분.", "bg": "bg_goldentime_news" },
         { "speaker": "나레이션", "text": "조금만 지체되어도... 이 학생의 생사를 갈라놓을 수 있다는 사실.", "bg": "bg_goldentime_news" },
@@ -106,7 +106,7 @@
       "outcomes": {
         "camera_on": {
           "minigame": "FOCUS",
-          "success_text": "영상 속 나는 누가 봐도 정의로운 영웅이었다.\nSNS 업로드: '응급 상황에서 사람을 살린 나' (좋아요 4.1k)",
+          "success_text": "영상 속 나는 누가 봐도 정의로운 영웅이었다.\nSNS 업로드: '응급 상황에서 사람을 살린 나' (좋아요 4.1K)",
           "fail_text": "자동제세동기는 가져왔지만 영상은 만족스럽지 못하다.\n사람들은 내 표정이 가식적이라 한다.",
           "score_likes": 4100,
           "score_hidden": 0
@@ -114,7 +114,7 @@
         "camera_off": {
           "minigame": "ICE",
           "success_text": "미끄러운 복도를 뚫고 제시간에 키트를 가져왔다. 학생이 숨을 쉰다!",
-          "fail_text": "내가 도착하기도 전에 학생은 응급실로 옮겨졌다. 괜찮을 거야.",
+          "fail_text": "내가 도착하기도 전에 학생은 응급실로 옮겨졌다. 괜찮을까?",
           "score_likes": 0,
           "score_hidden": 1
         }
