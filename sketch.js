@@ -68,7 +68,7 @@ function preload() {
   imgCrossyRule = loadImage('assets/rule_cross_the_street.png');
   imgIceRule2 = loadImage('assets/AED_rule_page2.png');
   imgIceRule = loadImage('assets/AED_rule.png');
-  //imgFishingRule = loadImage('assets/rule_fishing.png');
+  imgFishingRule = loadImage('assets/rule_fishing.png');
 
   mainFont = loadFont("font/KimNamyun.ttf");
   instaFont = loadFont("font/KoPubWorld.ttf");
