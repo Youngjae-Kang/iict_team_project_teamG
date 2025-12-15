@@ -182,7 +182,7 @@ function playFocus() {
   let d = dist(480+mgFocus.shakeX, 360+mgFocus.shakeY, 480, 360);
   let zoom = map(mgTimer,300,0,1.0,1.3);
   if(d < hitboxRadius * zoom){
-  stroke('#2cb86b')
+  stroke('#3feb67')
   } else{
     stroke('#db3535')
   }
@@ -250,7 +250,7 @@ function playIce() {
   image(imgIceBg,480,360,960,720)
   
   // 골인 지점 (보건실)
-  fill(0, 255, 0);
+  fill(44, 184, 107);
   rect(mgIce.goal.x, mgIce.goal.y, 100, 100);
   fill(0); textAlign(CENTER, CENTER); textSize(20);
   text("보건실", mgIce.goal.x, mgIce.goal.y);
@@ -446,7 +446,7 @@ function playCpr() {
 
   // 6. 안내 문구
   fill(0); noStroke(); textSize(24);
-  text("자가제세동기를 클릭하세요!", 480, 100);
+  text("자동제세동기를 클릭하세요!", 480, 100);
 
   // 7. 타이머 (시간 다 되면 실패)
   mgTimer--;
@@ -603,7 +603,7 @@ image(imgFishingBg,480,360,960,720)
   rectMode(CENTER); // 원래대로 복구
 
   // 안내 텍스트
-  fill(255);
+  fill(0);
   textSize(20);
   text("SPACE(또는 마우스)키를 꾹 눌러\n취객을 범위 안에 두세요!", 200, 360);
   text("구조율: " + int(mgFish.progress) + "%", progressX, 120);
