@@ -238,7 +238,7 @@ function playCrossy() {
     if(dist(mgCrossy.player.x,mgCrossy.player.y,car.x,car.y)<40) 
     { finishMinigame(false); return; }
   }
-  fill(255); stroke(0); ellipse(mgCrossy.player.x,mgCrossy.player.y,30,30);
+  fill(63, 235, 103); ellipse(mgCrossy.player.x,mgCrossy.player.y,30,30);
  if(mgCrossy.player.y<100 && mgCrossy.player.x>400 && mgCrossy.player.x<560) finishMinigame(true);
   mgTimer--; drawTimerBar();
   if(mgTimer<=0) finishMinigame(false);
