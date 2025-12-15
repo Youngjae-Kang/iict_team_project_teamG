@@ -63,9 +63,10 @@ function preload() {
   imgInstaIcon = loadImage("assets/instaicon.png");
   
   imgFocusRule_Ep1 = loadImage('assets/rule_focus_ep1.png'); 
-  imgFocusRule_Ep2 = loadImage('assets/rule_focus_ep2.png'); 
+  imgFocusRule_Ep2 = loadImage('assets/rule_focus_ep2.png');
+  imgFocusRule_Ep3 = loadImage('assets/rule_focus_ep3.png')
   imgCrossyRule = loadImage('assets/rule_cross_the_street.png');
-  //imgIceRule2 = loadImage('assets/AED_rule_page2.png');
+  imgIceRule2 = loadImage('assets/AED_rule_page2.png');
   imgIceRule = loadImage('assets/AED_rule.png');
   //imgFishingRule = loadImage('assets/rule_fishing.png');
 

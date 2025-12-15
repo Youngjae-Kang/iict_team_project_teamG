@@ -58,8 +58,9 @@ function drawRuleBook() {
       c = imgIceRule2;  // 두 번째 페이지 (없으면 imgIceRule이 뜰 수 있게 예외처리 가능)
     }
   }
-  else if(minigameType==="FISHING") c=imgFishingRule;
-  
+  else if(minigameType==="FISHING"){
+     c=imgFishingRule;
+  }
   if (c) {
     image(c, 480, 360, 960, 720);
   } else { 

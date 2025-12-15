@@ -59,10 +59,8 @@ function initMinigame() {
   else if (minigameType === "FISHING") {
   mgTimer = 900;       // 제한시간 (약 15초)
   mgMaxTimer = 900;
-  
-  // 낚시 게임 변수 세팅
-    mgTimer = 900;
-    mgMaxTimer = 900;
+    mgTimer = 1100;       // 제한시간 (약 15초)
+    mgMaxTimer = 1100;
     
     // 플레이어 바 시작 세팅
     mgFish.barY = 600;  
@@ -229,7 +227,7 @@ function checkFocusSuccess() {
 function playCrossy() {
   fill(50); rect(480,360,960,720); stroke(255,200,0); strokeWeight(5); line(0,380,960,380); noStroke();
   imageMode(CENTER);
-  image(imgChild,480,60,160,100); fill(255); text("구하세요!",560,60);
+  image(imgChild,480,60,160,100); fill(255); textSize(20); text("구하세요!",560,60);
   
   for(let car of mgCrossy.cars){
     car.x += car.speed;
@@ -500,7 +498,7 @@ image(imgFishingBg,480,360,960,720)
   // [수정] 벽 튕기기 (Reflection) 로직 적용
   // -------------------------------------------------
   
-  mgFish.targetTime += 0.0073; 
+  mgFish.targetTime += 0.0072; 
   
   let currentNoise = noise(mgFish.targetTime);
   let diff = currentNoise - mgFish.startNoiseVal;

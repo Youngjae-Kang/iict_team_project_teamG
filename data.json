@@ -178,8 +178,8 @@
       { "bg": "bg_feared_man", "speaker": "나레이션", "text": "그리고 심판관은 당신에게 말을 건넨다." },
       { "bg": "bg_judge", "speaker": "심판관", "text": "너의 기록은 화려했다.\n그러나 그건 '너'를 찍은 게 아니다.\n네가 본 건 사람의 고통이 아니라 카메라의 렌즈였다." },
       { "bg": "bg_judge", "speaker": "심판관", "text": "기록된 선행은 영원하겠지만, 구해내지 못한 사람은 영영 사라진다.\n너는 비극을 막은 게 아니라, 비극을 아주 예쁘게 전시했을 뿐이다." },
-      { "bg": "notPrepared", "speaker": "나레이션", "text": "당신은 깨닫는다.\n카메라는 켜져 있었지만, 양심은 꺼져 있었다는 사실을." },
-      { "bg": "notPrepared", "speaker": "나레이션", "text": "진정한 도움의 순간들은...\n 모두 초점 밖에 있었다." },
+      { "bg": "bg_focusing1", "speaker": "나레이션", "text": "당신은 깨닫는다.\n카메라는 켜져 있었지만, 양심은 꺼져 있었다는 사실을." },
+      { "bg": "bg_focusing2", "speaker": "나레이션", "text": "진정한 도움의 순간들은...\n 모두 초점 밖에 있었다." },
       { "bg": "bg_blackout", "speaker": "나레이션", "text": "...FOCUS OUT" },
       { "bg": "bg_blackout", "speaker": "나레이션", "text": "진정한 선행은 카메라를 던져버릴 그 1초의 용기 속에 있었을지 모른다..." },
       { "bg": "bg_blackout", "speaker": "시스템", "text": "BAD ENDING: 카메라에 갇힌 영웅" }
@@ -196,7 +196,7 @@
       { "bg": "bg_judge", "speaker": "심판관", "text": "그 선택이 얼마나 무겁고 어려운 일이었는지\n 그 누구보다 스스로가 잘 아는 법." },
       { "bg": "bg_judge", "speaker": "심판관", "text": "선행은 촬영되지 않아도 사라지지 않는다.\n기록되지 않아도, 누군가의 마음 속에서 항상 살아 숨쉰다." },
       { "bg": "bg_judge", "speaker": "나레이션", "text": "마지막으로 심판관은 말한다." },
-      { "bg": "notPrepared", "speaker": "심판관", "text": "진정한 선행은 항상 초점 밖에 있다." },
+      { "bg": "bg_focusing2", "speaker": "심판관", "text": "진정한 선행은 항상 초점 밖에 있다." },
       { "bg": "bg_blackout", "speaker": "나레이션", "text": "...FOCUS OUT" },
       { "bg": "bg_blackout", "speaker": "시스템", "text": "TRUE ENDING: 기록되지 않아도 남는 빛" }
     ],
@@ -210,10 +210,10 @@
       { "bg": "bg_judge", "speaker": "심판관", "text": "타인의 시선을 의식하면서도,\n양심을 완전히 버리지는 못했구나." },
       { "bg": "bg_judge", "speaker": "심판관", "text": "너는 아직 어디에 초점을 맞출지 모르는 사람이다." },
       { "bg": "bg_judge", "speaker": "심판관", "text": "인간은 모두 딜레마 속에 산다.\n보여지기 위해 살 것인가. 아니면 살리기 위해 볼 것인가." },
-      { "bg": "notPrepared", "speaker": "나레이션", "text": "당신은 깨닫는다.\n렌즈를 거치지 않고 바라볼 용기가 필요했음을." },
-      { "bg": "notPrepared", "speaker": "나레이션", "text": "중심을 잡지 못해 흔들리는 순간이 있었을지 모른다.\n하지만 그 흔들림조차 고민이었다면, 그것 또한 삶의 기록일지 모른다." },
+      { "bg": "bg_focusing1", "speaker": "나레이션", "text": "당신은 깨닫는다.\n렌즈를 거치지 않고 바라볼 용기가 필요했음을." },
+      { "bg": "bg_focusing2", "speaker": "나레이션", "text": "중심을 잡지 못해 흔들리는 순간이 있었을지 모른다.\n하지만 그 흔들림조차 고민이었다면, 그것 또한 삶의 기록일지 모른다." },
       { "bg": "bg_judge", "speaker": "나레이션", "text": "마지막으로 심판관은 말한다." },
-      { "bg": "notPrepared", "speaker": "심판관", "text": "진정한 선행은 언제나 초점 밖에 있다." },
+      { "bg": "bg_focusing2", "speaker": "심판관", "text": "진정한 선행은 언제나 초점 밖에 있다." },
       { "bg": "bg_blackout", "speaker": "나레이션", "text": "...FOCUS OUT" },
       { "bg": "bg_blackout", "speaker": "시스템", "text": "NORMAL ENDING: 흔들리는 초점" }
     ]
