@@ -92,8 +92,8 @@
         { "speaker": "나레이션", "text": "그러나 동시에 떠오른다.", "bg": "bg_goldentime_news" },
         { "speaker": "나레이션", "text": "카메라를 켜는 몇 초, 구도를 잡는 몇 초.\n찍히는 자신의 모습을 의식하며 달려가는 그 몇 분.", "bg": "bg_goldentime_news" },
         { "speaker": "나레이션", "text": "조금만 지체되어도..이 학생의 생사를 갈라놓을 수 있다는 사실.", "bg": "bg_goldentime_news" },
-        { "speaker": "나레이션", "text": "선택의 순간이다.", "bg": "notPrepared" },
-        { "speaker": "나레이션", "text": "카메라를 켜고 '영웅의 순간'을 기록할 것인가\n아니면 카메라를 끄고 전력으로 달릴 것인가.", "bg": "notPrepared" }
+        { "speaker": "나레이션", "text": "선택의 순간이다.", "bg": "eyes_close_up" },
+        { "speaker": "나레이션", "text": "카메라를 켜고 '영웅의 순간'을 기록할 것인가\n아니면 카메라를 끄고 전력으로 달릴 것인가.", "bg": "eyes_close_up" }
       ],
       "choice": {
         "question": "어떻게 할까?",

@@ -17,6 +17,7 @@ let imgStGirl
 let imgExtinguisher
 let imgCabinet
 let imgFishingBg
+let imgIceBg
 
 
 // === 게임 상태 변수 ===

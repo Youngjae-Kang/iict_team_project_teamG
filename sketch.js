@@ -45,6 +45,7 @@ function preload() {
   imgTarget2 = loadImage("assets/target_girl.png")
   imgTarget3 = loadImage("assets/target_drunk.png")
   runningPlayer=loadImage("assets/playericon.png")
+  imgIceBg = loadImage("assets/floor.png")
   imgFishingBg = loadImage("assets/fishingbg.png")
   
   imgStBoy = loadImage("assets/standing_boy.png"); 

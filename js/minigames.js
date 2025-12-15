@@ -246,8 +246,8 @@ function playCrossy() {
 
 function playIce() {
   // 배경 그리기
-  fill(220); // 복도 바닥 색 (회색)
-  rect(480, 360, 960, 720);
+  imageMode(CENTER)
+  image(imgIceBg,480,360,960,720)
   
   // 골인 지점 (보건실)
   fill(0, 255, 0);

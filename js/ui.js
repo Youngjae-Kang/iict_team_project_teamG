@@ -114,7 +114,7 @@ function drawResult() {
   textSize(40); textAlign(CENTER, CENTER);
   if (minigameResult) { fill(100,255,100); text("SUCCESS",480,200); fill(255); textSize(24); text(outcome.success_text,480,360); }
   else { fill(255,100,100); text("FAIL",480,200); fill(255); textSize(24); text(outcome.fail_text,480,360); }
-  fill(150); textSize(20); text("PRESS ENTER",480,600);
+  fill(150); textSize(20); text("PRESS SPACE or ENTER",480,600);
 }
 
 function drawEndingCredit() {
