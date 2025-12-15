@@ -130,7 +130,18 @@ function drawEndingCredit() {
   
   fill(200, 200, 255);
   text(`최종 Followers: ${formatNumber(scoreLikes)}`, 480, 450);
-  
+
+  fill(255);
+  if(endingType == "bad"){
+    text("Bad Ending", 480, 500);
+  }
+  else if(endingType == "normal"){
+    text("Normal Ending", 480, 500);
+  }
+  else{
+    text("True Ending", 480, 500);
+  }
+
   fill(100); textSize(16);
   text("ESC를 눌러 타이틀 화면으로 돌아가기", 480, 600);
 }

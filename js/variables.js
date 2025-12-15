@@ -1,6 +1,7 @@
 // === 자산 변수 ===
 let bgImages = {};
-let imgTarget, imgChild, camera_UI;
+let imgTarget1, imgTarget2, imgTarget3
+let imgChild, camera_UI;
 let imgCarRight, imgCarLeft, imgBarrier;
 let imgFocusRule_Ep1, imgFocusRule_Ep2, imgFocusRule_Ep3;
 let imgCrossyRule, imgIceRule, imgFishingRule;
@@ -14,6 +15,9 @@ let runningPlayer
 let imgStBoy
 let imgStGirl
 let imgExtinguisher
+let imgCabinet
+let imgFishingBg
+
 
 // === 게임 상태 변수 ===
 let jsonData;
@@ -26,6 +30,7 @@ const TIMEOUT_DURATION = 180000;
 let tutorialStep = 0;
 let previousGameState = ""; // 인스타 들어가기 전 상태를 저장
 let currentEndingScenes = [];
+let endingType=""
 
 // === 플레이어 & 점수 ===
 let playerName = "";

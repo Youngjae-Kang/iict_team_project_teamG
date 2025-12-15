@@ -80,9 +80,9 @@ function startEndingSequence() {
   currentSceneIndex = 0;
 
   // 1. 점수에 따라 엔딩 타입 결정
-  let endingType = "normal";
-  if (scoreLikes > 10000 && scoreHidden < 2) endingType = "bad";
-  else if (scoreHidden >= 2) endingType = "good";
+  endingType = "normal";
+  if (scoreLikes > 11000 || scoreHidden < 1) endingType = "bad";
+  else if (scoreHidden >= 2 && scoreLikes < 10000) endingType = "good";
   
   // 2. json에서 해당 엔딩 시나리오 가져오기
   // (만약 json 로딩 실패시를 대비해 빈 배열 처리)

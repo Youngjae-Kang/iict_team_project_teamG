@@ -43,10 +43,10 @@ function initMinigame() {
     mgIce.obstacles.push({ x: 350, y: 200, w: 80, h: 200, type: "StBoy" });
     
     // [장애물 2] 우측 하단 사물함
-    mgIce.obstacles.push({ x: 750, y: 350, w: 80, h: 200, type: "StBoy" });
+    mgIce.obstacles.push({ x: 750, y: 350, w: 80, h: 200, type: "Cabinet" });
 
     // [장애물 3] 길막고 있는 학생 (왼쪽)
-    mgIce.obstacles.push({ x: 150, y: 150, w: 70, h: 190, type: "StGirl" });
+    mgIce.obstacles.push({ x: 150, y: 150, w: 70, h: 190, type: "Cabinet" });
 
     // [장애물 4] 길막고 있는 학생 (중앙 하단)
     mgIce.obstacles.push({ x: 550, y: 500, w: 70, h: 190, type: "StGirl" });
@@ -134,8 +134,10 @@ function finishMinigame(isSuccess) {
   } else if(!isSuccess && minigameType === "Focus"){
     let penalty = int(random(1,11));
     earnedLikes = penalty; // 실패 시 점수 계산 (그래도 오르긴 함)
+    scoreHidden += outcome.score_hidden;
   } else{
     earnedLikes = int(random(1,11));
+    scoreHidden += outcome.score_hidden;
   }
 
   recentLikeIncrease = earnedLikes; // ★ 증가량 따로 저장!
@@ -165,7 +167,14 @@ function playFocus() {
   fill(0);
   rect(480, 360, 960, 720);
   imageMode(CENTER);
-  if (imgTarget) image(imgTarget, 480, 360, 960 * zoomScale, 720 * zoomScale);
+  if(currentEpisodeIndex === 0){
+    image(imgTarget1, 480, 360, 960 * zoomScale, 720 * zoomScale);
+  }
+  else if(currentEpisodeIndex === 1){
+    image(imgTarget2, 480, 360, 960 * zoomScale, 720 * zoomScale);
+  } else{
+    image(imgTarget3, 480, 360, 960 * zoomScale, 720 * zoomScale);
+  }
 
   let focusX = 480 + mgFocus.shakeX;
   let focusY = 360 + mgFocus.shakeY;
@@ -229,9 +238,8 @@ function playCrossy() {
     if(dist(mgCrossy.player.x,mgCrossy.player.y,car.x,car.y)<40) 
     { finishMinigame(false); return; }
   }
-  //fill(100,100,255); ellipse(mgCrossy.player.x,mgCrossy.player.y,30,30);
-  image(runningPlayer,mgCrossy.player.x,mgCrossy.player.y,30,30);
-  if(mgCrossy.player.y<100 && mgCrossy.player.x>400 && mgCrossy.player.x<560) finishMinigame(true);
+  fill(100,100,255); ellipse(mgCrossy.player.x,mgCrossy.player.y,30,30);
+ if(mgCrossy.player.y<100 && mgCrossy.player.x>400 && mgCrossy.player.x<560) finishMinigame(true);
   mgTimer--; drawTimerBar();
   if(mgTimer<=0) finishMinigame(false);
 }
@@ -278,6 +286,11 @@ function playIce() {
       if (typeof imgExtinguisher !== 'undefined' && imgExtinguisher){
       imageMode(CORNER);
       image(imgExtinguisher,obs.x,obs.y,obs.w,obs.h);
+      }
+    } else if (obs.type === "Cabinet") {
+      if (typeof imgExtinguisher !== 'undefined' && imgCabinet){
+      imageMode(CORNER);
+      image(imgCabinet,obs.x,obs.y,obs.w,obs.h);
       }
     }
   }
@@ -433,7 +446,7 @@ function playCpr() {
 
   // 6. 안내 문구
   fill(0); noStroke(); textSize(24);
-  text("CPR 키트가 지나갈 때 클릭하세요!", 480, 100);
+  text("자가제세동기를 클릭하세요!", 480, 100);
 
   // 7. 타이머 (시간 다 되면 실패)
   mgTimer--;
@@ -463,8 +476,8 @@ function handleCprClick() {
 
 function playFishing() {
   // 1. 배경 그리기 (선로 아래 어두운 느낌)
-  fill(10, 10, 30);
-  rect(480, 360, 960, 720);
+imageMode(CENTER);
+image(imgFishingBg,480,360,960,720)
   
   // 게임 영역 (낚시 바 UI)
   let gameX = 480;

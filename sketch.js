@@ -24,17 +24,33 @@ function preload() {
   bgImages["bg_goldentime_news"] = loadImage("assets/golden_time.png")
   bgImages["student_a"] = loadImage("assets/student_a.png")
 
+  //episode3
+  bgImages["bg_station"] = loadImage("assets/subway_station.png")
+  bgImages["bg_subway_ann_1"] = loadImage("assets/subway_ann_1.png")
+  bgImages["bg_subway_ann_2"] = loadImage("assets/subway_ann_2.png")
+  bgImages["bg_shivering_hand"] = loadImage("assets/shivering_hand.png")
+  bgImages["bg_falling_man"] = loadImage("assets/falling_man.png")
+  bgImages["bg_feared_man"] = loadImage("assets/feared_man.png")
+
+  //ending
+  bgImages["bg_judge"] = loadImage("assets/judge.png")
+  bgImages["bg_blackout"] = loadImage("assets/blackout.png")
+
   //UI/OBJECT
   camera_UI = loadImage("assets/camera_ui.png");
   imgCarRight = loadImage("assets/carR.png");
   imgCarLeft = loadImage("assets/carL.png");
   imgChild = loadImage("assets/child.png");
-  imgTarget = loadImage("assets/target_child.png")
+  imgTarget1 = loadImage("assets/target_child.png")
+  imgTarget2 = loadImage("assets/target_girl.png")
+  imgTarget3 = loadImage("assets/target_drunk.png")
   runningPlayer=loadImage("assets/playericon.png")
+  imgFishingBg = loadImage("assets/fishingbg.png")
   
   imgStBoy = loadImage("assets/standing_boy.png"); 
   imgStGirl = loadImage("assets/standing_girl.png");
   imgExtinguisher=loadImage("assets/fire_extinguisher.png")
+  imgCabinet=loadImage("assets/cabinet.png")
   imgObstacle = loadImage('assets/obstacle.png');
   imgCprKit = loadImage('assets/cpr_kit.png');
   imgPill = loadImage('assets/pill.png');
