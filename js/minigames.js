@@ -131,7 +131,7 @@ function finishMinigame(isSuccess) {
     let bonus = int(random(250, 501));
     earnedLikes = outcome.score_likes + bonus; // 성공 시 점수 계산
     scoreHidden += outcome.score_hidden;
-  } else if(!isSuccess && minigameType === "Focus"){
+  } else if(!isSuccess && minigameType === "FOCUS"){
     let penalty = int(random(100,250));
     earnedLikes = penalty; // 실패 시 점수 계산 (그래도 오르긴 함)
     scoreHidden += outcome.score_hidden;
