@@ -57,8 +57,6 @@ function initMinigame() {
     mgIce.obstacles.push({ x: 600, y: 240, w: 40, h: 80, type: "Extinguisher" });
   }
   else if (minigameType === "FISHING") {
-  mgTimer = 900;       // 제한시간 (약 15초)
-  mgMaxTimer = 900;
     mgTimer = 1100;       // 제한시간 (약 15초)
     mgMaxTimer = 1100;
     
