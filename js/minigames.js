@@ -203,7 +203,7 @@ function playFocus() {
   fill(255);
   noStroke();
   textSize(20);
-  text("초점 안에 아이가 담길 때 SPACE!", 480, 50);
+  text("초점 안에 얼굴이 담길 때 SPACE!", 480, 50);
   mgTimer--;
 
   push();
