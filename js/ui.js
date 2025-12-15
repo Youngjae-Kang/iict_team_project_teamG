@@ -51,7 +51,14 @@ function drawRuleBook() {
     }
   }
   else if(minigameType==="CROSSY") c=imgCrossyRule;
-  else if(minigameType==="ICE") c=imgIceRule; else if(minigameType==="FISHING") c=imgFishingRule;
+  else if (minigameType === "ICE") {
+    if (ruleBookStep === 0) {
+      c = imgIceRule;   // 첫 번째 페이지
+    } else {
+      c = imgIceRule2;  // 두 번째 페이지 (없으면 imgIceRule이 뜰 수 있게 예외처리 가능)
+    }
+  }
+  else if(minigameType==="FISHING") c=imgFishingRule;
   
   if (c) {
     image(c, 480, 360, 960, 720);
@@ -63,7 +70,6 @@ function drawRuleBook() {
     text(minigameType + " RULE\n(Episode " + (currentEpisodeIndex + 1) + ")", 480, 360); 
   }
   
-  if(frameCount%60<30){ fill(0); textSize(30); noStroke(); text("- PRESS SPACE -", 480, 680); }
 }
 
 function drawInstagram() {

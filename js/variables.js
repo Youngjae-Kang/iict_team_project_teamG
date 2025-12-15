@@ -18,6 +18,7 @@ let imgExtinguisher
 let imgCabinet
 let imgFishingBg
 let imgIceBg
+let imgIceRule2;
 
 
 // === 게임 상태 변수 ===
@@ -32,6 +33,7 @@ let tutorialStep = 0;
 let previousGameState = ""; // 인스타 들어가기 전 상태를 저장
 let currentEndingScenes = [];
 let endingType=""
+let ruleBookStep = 0; // 룰북 페이지 (0: 첫장, 1: 둘째장)
 
 // === 플레이어 & 점수 ===
 let playerName = "";

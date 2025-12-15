@@ -65,6 +65,7 @@ function preload() {
   imgFocusRule_Ep1 = loadImage('assets/rule_focus_ep1.png'); 
   imgFocusRule_Ep2 = loadImage('assets/rule_focus_ep2.png'); 
   imgCrossyRule = loadImage('assets/rule_cross_the_street.png');
+  //imgIceRule2 = loadImage('assets/AED_rule_page2.png');
   imgIceRule = loadImage('assets/AED_rule.png');
   //imgFishingRule = loadImage('assets/rule_fishing.png');
 
@@ -240,7 +241,19 @@ function keyPressed() {
    else if (gameState === "SCENE") {
     if (keyCode === ENTER || keyCode === 32)  handleSceneInput(jsonData.episodes[currentEpisodeIndex].scenes);
   } else if (gameState === "RULEBOOK") {
-    if (keyCode === ENTER || keyCode === 32) initMinigame();
+    if (keyCode === ENTER || keyCode === 32){
+      if (minigameType === "ICE") {
+        if (ruleBookStep === 0) {
+          ruleBookStep++; // 0페이지면 -> 1페이지로 이동
+        } else {
+          initMinigame(); // 1페이지(마지막)면 -> 게임 시작
+        }
+      } 
+      // 다른 게임들은 기존처럼 바로 시작
+      else {
+        initMinigame();
+      }
+    }
   } else if (gameState === "RESULT") {
     if (keyCode === ENTER || keyCode === 32) gameState = "INSTAGRAM";
   } else if (gameState === "INSTAGRAM") {

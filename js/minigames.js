@@ -2,6 +2,7 @@
 function startMinigame(type) {
   minigameType = type;
   gameState = "RULEBOOK";
+  ruleBookStep = 0;
 }
 
 // 실제 게임 초기화 (엔터 누르면 실행)
