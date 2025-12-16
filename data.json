@@ -50,7 +50,7 @@
       "choice": {
         "question": "어떻게 할까?",
         "options": [
-          { "label": "카메라 ON: 선행 콘텐츠 제작", "type": "camera_on" },
+          { "label": "카메라 ON: '아이 구하기' 콘텐츠 제작", "type": "camera_on" },
           { "label": "카메라 OFF: 즉시 아이를 구하기", "type": "camera_off" }
         ]
       },
@@ -106,8 +106,8 @@
       "outcomes": {
         "camera_on": {
           "minigame": "FOCUS",
-          "success_text": "영상 속 나는 누가 봐도 정의로운 영웅이었다.\nSNS 업로드: '응급 상황에서 사람을 살린 나' (좋아요 4.1K)",
-          "fail_text": "자동제세동기는 가져왔지만 영상은 만족스럽지 못하다.\n사람들은 내 표정이 가식적이라 한다.",
+          "success_text": "영상 속 나는 누가 봐도 정의로운 영웅이었다.\nSNS 업로드: '응급 상황에서 사람을 살린 나'",
+          "fail_text": "자동제세동기는 가져왔지만 영상은 만족스럽지 못하다.\n사람들은 내용을 제대로 알아볼 수 없다고 한다.",
           "score_likes": 4100,
           "score_hidden": 0
         },
