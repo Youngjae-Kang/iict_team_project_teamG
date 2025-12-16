@@ -223,8 +223,8 @@ function checkFocusSuccess() {
 }
 
 function playCrossy() {
-  fill(50); rect(480,360,960,720); stroke(255,200,0); strokeWeight(5); line(0,380,960,380); noStroke();
   imageMode(CENTER);
+  image(imgCrossyBg,480,360,960,720);
   image(imgChild,480,60,160,100); fill(255); textSize(20); text("구하세요!",560,60);
   
   for(let car of mgCrossy.cars){

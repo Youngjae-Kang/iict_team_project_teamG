@@ -50,6 +50,7 @@ function preload() {
   runningPlayer=loadImage("assets/playericon.png")
   imgIceBg = loadImage("assets/floor.png")
   imgFishingBg = loadImage("assets/fishingbg.png")
+  imgCrossyBg = loadImage("assets/crossybg.png")
   
   imgStBoy = loadImage("assets/standing_boy.png"); 
   imgStGirl = loadImage("assets/standing_girl.png");
