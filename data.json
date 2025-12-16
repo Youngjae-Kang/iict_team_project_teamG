@@ -128,7 +128,7 @@
         { "speaker": "나레이션", "text": "사람들은 스마트폰을 들여다보거나\n플랫폼 가장자리에 늘어선 채 한숨을 쉬며 열차를 기다린다.", "bg": "bg_station" },
         { "speaker": "나레이션", "text": "당신도 오늘 하루를 마치고 돌아가려던 참이다.", "bg": "bg_station" },
         { "speaker": "나레이션", "text": "덜컹—\n그 순간, 당신의 시야 한쪽에서", "bg": "bg_station" },
-        { "speaker": "나레이션", "text": "술에 취한 듯 비틀거리던 남성이\n발을 헛디디며 몸이 앞으로 쏠린다.", "bg": "bg_falling_man" },
+        { "speaker": "나레이션", "text": "술에 취한 듯 비틀거리던 남성이\n발을 헛디디며 몸이 뒤로 쏠린다.", "bg": "bg_falling_man" },
         { "speaker": "나레이션", "text": "그리고 그대로... 선로 아래로 떨어졌다...!", "bg": "bg_falling_man" },
         { "speaker": "시스템", "text": "지금 00행 열차가 들어오고 있습니다.\n삐—", "bg": "bg_subway_ann_1" },
         { "speaker": "나레이션", "text": "모두 혼비백산이 되어 비명을 지르거나 뒷걸음질친다.", "bg": "bg_subway_ann_2" },
