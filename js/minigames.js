@@ -145,7 +145,7 @@ function finishMinigame(isSuccess) {
 function playFocus() {
   let zoomScale = map(mgTimer, 300, 0, 1.0, 1.3);
   let slowFreq = 0.025;
-  let wideRange = 130;
+  let wideRange = 120;
   mgFocus.shakeX = map(
     noise(frameCount * slowFreq),
     0,
