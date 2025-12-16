@@ -34,6 +34,9 @@ function nextScene(sceneArray) {
       gameState = "ENDING_CREDIT"; 
     } else {
       gameState = "CHOICE";
+      if (bgm && bgm.isPlaying()) {
+        bgm.pause(); // stop()이 아니라 pause()를 써야 이어서 들을 수 있음
+      }
     }
   }
 }

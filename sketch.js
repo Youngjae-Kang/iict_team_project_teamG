@@ -2,6 +2,7 @@
 function preload() {
   jsonData = loadJSON("data.json");
   bgImages["notPrepared"] = loadImage("assets/notPrepared.png")
+  bgm = loadSound('assets/bgm.mp3');
   
   //메인
   imgMain = loadImage("assets/title_2.png")
@@ -122,6 +123,9 @@ function resetGame() {
 
   nameInput.hide();
   nameBtn.hide();
+  if (bgm && bgm.isPlaying()) {
+    bgm.stop();
+  }
 }
 
 
@@ -237,7 +241,11 @@ function keyPressed() {
       gameState = "SCENE";
       currentEpisodeIndex = 0;
       currentSceneIndex = 0;
-      prepareDialogue(jsonData.episodes[0].scenes[0]); 
+      prepareDialogue(jsonData.episodes[0].scenes[0]);
+      if (bgm && !bgm.isPlaying()) {
+          bgm.setVolume(0.5); // 볼륨 조절 (0.0 ~ 1.0)
+          bgm.loop(); 
+        } 
       }
     }
 
@@ -277,11 +285,16 @@ function keyPressed() {
           gameState = "SCENE";
           currentSceneIndex = 0;
           prepareDialogue(jsonData.episodes[currentEpisodeIndex].scenes[0]); 
+          // ★★★ [추가 2] 에피소드 2, 3 시작: BGM 이어서 재생
+          // pause() 상태에서 loop()나 play()를 부르면 끊긴 곳부터 이어서 나옵니다.
+          if (bgm && !bgm.isPlaying()) bgm.loop();
         } else {
           startEndingSequence();
+          if (bgm) bgm.stop();
         }
       } else {
         gameState = "SCENE";
+        if (bgm && !bgm.isPlaying()) bgm.loop();
       }
     }
 

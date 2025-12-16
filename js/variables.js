@@ -19,6 +19,7 @@ let imgCabinet
 let imgFishingBg
 let imgIceBg
 let imgIceRule2;
+let bgm; // 배경음악 변수
 
 
 // === 게임 상태 변수 ===
