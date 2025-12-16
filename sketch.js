@@ -226,6 +226,11 @@ function keyPressed() {
       nameInput.value("");
       nameInput.show();
       nameBtn.show();
+          if (bgm && !bgm.isPlaying()) {
+          bgm.setVolume(0.5); // 볼륨 조절 (0.0 ~ 1.0)
+          bgm.loop(); 
+        } 
+      
     }
   } else if (gameState === "NAME_INPUT") {
     if (keyCode === ENTER) submitName();
@@ -242,10 +247,7 @@ function keyPressed() {
       currentEpisodeIndex = 0;
       currentSceneIndex = 0;
       prepareDialogue(jsonData.episodes[0].scenes[0]);
-      if (bgm && !bgm.isPlaying()) {
-          bgm.setVolume(0.5); // 볼륨 조절 (0.0 ~ 1.0)
-          bgm.loop(); 
-        } 
+
       }
     }
 
@@ -271,33 +273,37 @@ function keyPressed() {
   } else if (gameState === "INSTAGRAM") {
     if (keyCode === ENTER || keyCode === 32) {
       if (previousGameState === "TUTORIAL") {
-      gameState = "TUTORIAL";
-      tutorialStep = 2; // "잘하셨습니다!" 하면서 다음 단계로 넘겨주면 자연스럽습니다.
-      previousGameState = ""; // 변수 초기화
-      return;
-    }
-    // ★★★ [추가] 인스타 화면을 나갈 때 증가량 표시 초기화
+        gameState = "TUTORIAL";
+        tutorialStep = 2; 
+        previousGameState = ""; 
+        return;
+      }
+
       recentLikeIncrease = 0;
+
       if (minigameResult !== null) {
         currentEpisodeIndex++;
         minigameResult = null;
+        
         if (currentEpisodeIndex < jsonData.episodes.length) {
           gameState = "SCENE";
           currentSceneIndex = 0;
           prepareDialogue(jsonData.episodes[currentEpisodeIndex].scenes[0]); 
-          // ★★★ [추가 2] 에피소드 2, 3 시작: BGM 이어서 재생
-          // pause() 상태에서 loop()나 play()를 부르면 끊긴 곳부터 이어서 나옵니다.
-          if (bgm && !bgm.isPlaying()) bgm.loop();
+          
+          // ★ [삭제됨] 여기에 있던 bgm.loop() 코드를 지웠습니다.
+          // (이미 켜져 있으니까 건드릴 필요 없음)
+
         } else {
           startEndingSequence();
-          if (bgm) bgm.stop();
+          
+          // ★ [삭제됨] 여기에 있던 if (bgm) bgm.stop(); 코드를 지웠습니다.
+          // (엔딩 때도 노래가 계속 나와야 하니까요)
         }
       } else {
         gameState = "SCENE";
-        if (bgm && !bgm.isPlaying()) bgm.loop();
+        // ★ [삭제됨] 여기에 있던 bgm.loop() 코드도 지웠습니다.
       }
     }
-
   } else if (gameState === "ENDING_SEQUENCE") {
     if (keyCode === ENTER || keyCode === 32){
     // 엔딩 시나리오 배열(currentEndingScenes)을 넘기는 함수 호출
@@ -315,7 +321,7 @@ function keyPressed() {
   // [개발용 디버그 치트키]
   // 개발 완료 후에는 이 부분을 주석 처리하거나 삭제하세요.
   // ==============================================
-  
+  /*
   // [숫자 1, 2, 3]: 각 에피소드 시작 부분으로 점프
   
   if (key === '1') jumpToEpisode(0); // 에피소드 1
@@ -338,13 +344,13 @@ function keyPressed() {
     scoreLikes = 0; scoreHidden = 5;
     gameState = "ENDING";
   }
-
+*/
 
 
 }
 
 
-
+/*
 // [디버그용 헬퍼 함수 1] 에피소드로 점프
 function jumpToMinigame(type) {
   console.log(`Debug: Starting Minigame ${type}`);
@@ -385,7 +391,7 @@ function jumpToMinigame(type) {
   }
 
 }
-
+*/
 
 function mousePressed() {
   lastInputTime = millis();
