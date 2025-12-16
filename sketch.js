@@ -35,6 +35,8 @@ function preload() {
   //ending
   bgImages["bg_judge"] = loadImage("assets/judge.png")
   bgImages["bg_blackout"] = loadImage("assets/blackout.png")
+  bgImages["bg_focusing1"] = loadImage("assets/Ending_Focusing1.png")
+  bgImages["bg_focusing2"] = loadImage("assets/Ending_Focusing2.png")
 
   //UI/OBJECT
   camera_UI = loadImage("assets/camera_ui.png");
@@ -67,7 +69,7 @@ function preload() {
   imgFocusRule_Ep3 = loadImage('assets/rule_focus_ep3.png')
   imgCrossyRule = loadImage('assets/rule_cross_the_street.png');
   imgIceRule2 = loadImage('assets/AED_rule_page2.png');
-  imgIceRule = loadImage('assets/AED_rule.png');
+  imgIceRule = loadImage('assets/AED_rule_page1.png');
   //imgFishingRule = loadImage('assets/rule_fishing.png');
 
   mainFont = loadFont("font/KimNamyun.ttf");
