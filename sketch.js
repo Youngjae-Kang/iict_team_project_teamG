@@ -304,7 +304,7 @@ function keyPressed() {
   // ==============================================
   
   // [숫자 1, 2, 3]: 각 에피소드 시작 부분으로 점프
-  /*
+  
   if (key === '1') jumpToEpisode(0); // 에피소드 1
   if (key === '2') jumpToEpisode(1); // 에피소드 2
   if (key === '3') jumpToEpisode(2); // 에피소드 3
@@ -325,13 +325,13 @@ function keyPressed() {
     scoreLikes = 0; scoreHidden = 5;
     gameState = "ENDING";
   }
-*/
+
 
 
 }
 
 
-/*
+
 // [디버그용 헬퍼 함수 1] 에피소드로 점프
 function jumpToMinigame(type) {
   console.log(`Debug: Starting Minigame ${type}`);
@@ -371,7 +371,7 @@ function jumpToMinigame(type) {
     gameState = "MINIGAME"; 
   }
 
-}*/
+}
 
 
 function mousePressed() {
