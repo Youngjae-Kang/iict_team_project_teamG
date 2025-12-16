@@ -72,6 +72,7 @@ function preload() {
   imgIceRule = loadImage('assets/AED_rule_page1.png');
   //imgFishingRule = loadImage('assets/rule_fishing.png');
 
+
   mainFont = loadFont("font/KimNamyun.ttf");
   instaFont = loadFont("font/KoPubWorld.ttf");
 }
