@@ -144,8 +144,8 @@ function finishMinigame(isSuccess) {
 // --- 각 게임별 로직 (간소화) ---
 function playFocus() {
   let zoomScale = map(mgTimer, 300, 0, 1.0, 1.3);
-  let slowFreq = 0.03;
-  let wideRange = 145;
+  let slowFreq = 0.025;
+  let wideRange = 130;
   mgFocus.shakeX = map(
     noise(frameCount * slowFreq),
     0,
